@@ -33,7 +33,7 @@ const Chatbot = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer sk-amzHyugPTVFGyxuSyeYkT3BlbkFJyJOrEktg 5PAVVOZujz5j`
+        Authorization: `Bearer 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`
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
