@@ -1,0 +1,245 @@
+.App {
+  font-family: "Nunito", sans-serif !important;
+  text-align: center;
+  max-height: 100vh;
+  overflow-y: none;
+}
+
+* {
+  font-family: "Nunito", sans-serif !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+.chatbot {
+  padding: 10px;
+}
+
+/* .chatbot-inner {
+
+} */
+.messagesOuter {
+  box-shadow: 0 0 70px lightblue;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.messages {
+  /* max-width: 500px; */
+  height: calc(100vh - 145px);
+  /* max-height: 400px; */
+  overflow-y: scroll;
+  margin: auto;
+  padding: 20px;
+}
+
+.user-message pre {
+  box-shadow: 0 0 7px gray !important;
+}
+
+.user-message pre,
+.bot-message pre {
+  padding: 10px 0;
+  letter-spacing: 0 !important;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Nunito", sans-serif !important;
+  font-size: 16px;
+  line-height: 21px;
+}
+.user-message {
+  /* font-weight: 600; */
+  text-align: right;
+  margin-left: 100px;
+}
+
+.bot-message {
+  margin-right: 100px;
+  /* font: normal normal normal 13px/20px SF Pro Display !important; */
+  /* font: normal normal normal 13px/20px Roboto !important; */
+}
+
+@media only screen and (max-width: 600px) {
+  .user-message {
+    margin-left: 60px;
+  }
+
+  .bot-message {
+    margin-right: 60px;
+  }
+
+  .chatbot-form button {
+    max-width: 60px;
+  }
+
+  .inputsDiv {
+    min-width: unset !important;
+  }
+
+  .messages {
+    height: calc(100vh - 230px);
+    padding: 10px;
+  }
+}
+
+.user-message pre {
+  text-align: left;
+  background: #412bbd !important;
+  color: white !important;
+}
+
+.messages pre {
+  margin: 0;
+  display: inline-block;
+  border-radius: 20px;
+  box-shadow: 0 0 7px lightgray;
+  padding: 10px 15px;
+  padding-bottom: 9px;
+  margin-bottom: 10px;
+  background-color: #d0e9f1;
+}
+
+.chatbot-form {
+  position: sticky;
+  bottom: 0;
+  height: 110px;
+  padding-top: 5px;
+  max-width: 90vw;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.chatbot-form #query {
+  height: 70px;
+  width: -webkit-fill-available;
+  outline: none !important;
+  border: none !important;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px #412bbd44;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.chatbot-form #query:focus {
+  border: 1px solid;
+}
+
+.chatbot-form button {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  height: 60px;
+  width: 20%;
+  border-radius: 15px;
+}
+
+.optionBtn {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.optionBtn:hover {
+  background-color: #007bffbb;
+  border-color: #007bffbb;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  /* height: 100px; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #f1f1f1; */
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #add8e6;
+  border-radius: 20px;
+}
+
+code {
+  /* background-color: black; */
+  /* color: white; */
+  display: inline-block !important;
+  padding: 15px !important;
+  border-radius: 10px;
+  font-size: 14px !important;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.inputsDiv {
+  display: flex;
+  flex-direction: column;
+  min-width: 142px;
+}
+
+#sendBtn {
+  /* flex-grow: 1; */
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxes {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+.checkboxes div {
+  display: flex;
+  gap: 3px;
+  align-items: flex-start;
+}
+
+.newchat {
+  background-color: #ff828275;
+  border-radius: 5px;
+  border: none;
+  padding: 2px 5px;
+  color: #b20d0d;
+  cursor: pointer;
+  user-select: none;
+  margin-top: -10px;
+  font-size: small;
+}
+
+.spinner {
+  position: relative;
+  /* left: 20px;
+  bottom: 20px; */
+  color: #add8e6 !important;
+}
+
+input[type="checkbox"] {
+  height: 24px;
+}
+
+.lang_name {
+  margin: 0;
+  position: absolute;
+  border-radius: 10px 10px 10px 0 !important;
+  font-weight: bold;
+  box-shadow: none !important;
+  /* padding-bottom: 2px !important;
+  padding-right: 7px !important; */
+  /* padding: 7px !important; */
+  font-size: 14px !important;
+}
