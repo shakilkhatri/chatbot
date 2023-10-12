@@ -37,6 +37,7 @@ const Chatbot = () => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
+        // model: "gpt-4",
         messages: [
           { role: "user", content: rememberContext ? history + query : query },
         ],
@@ -234,12 +235,15 @@ const Chatbot = () => {
                             <pre
                               key={index + "22"}
                               onClick={() =>
-                                handleClick(getStringAfterFirstLineBreak(item))
+                                handleClick(
+                                  getStringAfterFirstLineBreak(item) || item
+                                )
                               }
                             >
                               <code>
-                                {item.split("\n", 1)[0] &&
-                                  "\n" + getStringAfterFirstLineBreak(item)}
+                                {item.split("\n", 1)[0]
+                                  ? "\n" + getStringAfterFirstLineBreak(item)
+                                  : item.slice(1)}
                               </code>
                             </pre>
                             <br />
