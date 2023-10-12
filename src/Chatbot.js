@@ -33,14 +33,14 @@ const Chatbot = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer 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`
+        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: [
-          { role: "user", content: rememberContext ? history + query : query }
-        ]
-      })
+          { role: "user", content: rememberContext ? history + query : query },
+        ],
+      }),
     });
 
     if (r.ok) {
@@ -63,7 +63,7 @@ const Chatbot = () => {
   const processResponse = () => {
     setMessages((prevMessages) => [
       ...prevMessages,
-      { text: answer, isUser: false }
+      { text: answer, isUser: false },
     ]);
 
     setTimeout(() => {
@@ -90,7 +90,7 @@ const Chatbot = () => {
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: userInput, isUser: true }
+        { text: userInput, isUser: true },
       ]);
       // e.target.reset();
 
@@ -216,7 +216,7 @@ const Chatbot = () => {
                                 __html:
                                   index === 0
                                     ? formatTextWithBold(item)
-                                    : formatTextWithBold(item.slice(2))
+                                    : formatTextWithBold(item.slice(2)),
                               }}
                             ></pre>
                             <br />

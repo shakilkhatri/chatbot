@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
 function createStringOfMonthAndHour() {
@@ -29,6 +30,10 @@ const PasswordPage = ({ setHasAccess }) => {
       setErrorMessage("Invalid password. Please try again.");
     }
   };
+
+  useEffect(() => {
+    document.getElementById("password").focus();
+  }, []);
 
   return (
     <div className="container">
