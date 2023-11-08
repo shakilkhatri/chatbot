@@ -93,8 +93,10 @@ const Chatbot = () => {
       hljs.highlightElement(codeElements[i]);
     }
 
-    const inputbox = document.getElementById("query");
-    inputbox.focus();
+    if (window.innerWidth > 500) {
+      const inputbox = document.getElementById("query");
+      inputbox.focus();
+    }
 
     setTimeout(() => {
       const chatbotBox = document.querySelector(".messages");
@@ -143,7 +145,10 @@ const Chatbot = () => {
   }, [enterToSend, handleSendMessage]);
 
   useEffect(() => {
-    document.getElementById("query").focus();
+    if (window.innerWidth > 500) {
+      const inputbox = document.getElementById("query");
+      inputbox.focus();
+    }
   }, []);
 
   function getStringAfterFirstLineBreak(inputString) {
