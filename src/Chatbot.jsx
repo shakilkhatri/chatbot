@@ -19,12 +19,8 @@ const Chatbot = () => {
   const [modelName, setModelName] = useState("gpt-3.5-turbo-1106");
 
   const completionsApiCall = useCallback(async () => {
-    setTimeout(() => {
-      const chatbotBox = document.querySelector(".messages");
-      chatbotBox.scrollTop = chatbotBox.scrollHeight;
-    }, 300);
-
     setLoading(true);
+    setQuery("");
 
     const history = messages.map((msg) => {
       return { role: msg.isUser ? "user" : "assistant", content: msg.text };
@@ -43,10 +39,6 @@ const Chatbot = () => {
         model: modelName,
         response_format: { type: jsonFormat ? "json_object" : "text" },
         messages: rememberContext ? [...history, currentMsg] : [currentMsg],
-        // content:
-        //   (rememberContext ? history + query : query) + jsonFormat
-        //     ? "Produce output in JSON format"
-        //     : "",
       }),
     });
 
@@ -72,14 +64,6 @@ const Chatbot = () => {
       ...prevMessages,
       { text: answer, isUser: false },
     ]);
-
-    setTimeout(() => {
-      const chatbotBox = document.querySelector(".messages");
-      // chatbotBox.scrollTop = chatbotBox.scrollHeight;
-      let botMessages = document.getElementsByClassName("bot-message");
-      let lastBotMessage = botMessages[botMessages.length - 1];
-      chatbotBox.scrollTo(0, lastBotMessage.offsetTop - 100);
-    }, 300);
   };
 
   const handleSendMessage = useCallback(
@@ -87,25 +71,14 @@ const Chatbot = () => {
       // e.preventDefault();
       document.getElementById("query").blur();
 
-      setTimeout(() => {
-        const chatbotBox = document.querySelector(".messages");
-        chatbotBox.scrollTop = chatbotBox.scrollHeight;
-      }, 0);
-
       const userInput = query;
 
       setMessages((prevMessages) => [
         ...prevMessages,
         { text: userInput, isUser: true },
       ]);
-      // e.target.reset();
 
       completionsApiCall();
-      // toast.promise(completionsApiCall(), {
-      //   loading: "Thinking",
-      //   success: "Success!",
-      //   error: "Error when fetching"
-      // });
     },
     [query, setQuery, setMessages, completionsApiCall]
   );
@@ -119,11 +92,12 @@ const Chatbot = () => {
     for (let i = 0; i < codeElements.length; i++) {
       hljs.highlightElement(codeElements[i]);
     }
-    setQuery("");
+
+    const inputbox = document.getElementById("query");
+    inputbox.focus();
 
     setTimeout(() => {
       const chatbotBox = document.querySelector(".messages");
-      // chatbotBox.scrollTop = chatbotBox.scrollHeight;
       let botMessages = document.getElementsByClassName("bot-message");
       let lastBotMessage = botMessages[botMessages.length - 1];
       chatbotBox.scrollTo(0, lastBotMessage?.offsetTop - 100);
@@ -152,6 +126,7 @@ const Chatbot = () => {
   useEffect(() => {
     const handleEvent = (e) => {
       if (enterToSend && e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
         handleSendMessage();
       }
     };

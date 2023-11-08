@@ -78,7 +78,7 @@ body {
   }
 
   .messages {
-    height: calc(100vh - 230px);
+    height: calc(100vh - 280px);
     padding: 10px;
   }
 }
@@ -197,7 +197,7 @@ pre {
 
 .checkboxes {
   display: flex;
-  gap: 20px;
+  gap: 10px 20px;
   padding: 10px;
   flex-wrap: wrap;
   align-items: end;
@@ -217,8 +217,11 @@ pre {
   color: #b20d0d;
   cursor: pointer;
   user-select: none;
-  margin-top: -10px;
   font-size: small;
+}
+
+label {
+  cursor: pointer;
 }
 
 .spinner {
