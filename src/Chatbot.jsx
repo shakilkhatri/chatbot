@@ -15,6 +15,8 @@ const Chatbot = () => {
   const [enterToSend, setEnterToSend] = useState(true);
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [jsonFormat, setJsonFormat] = useState(false);
+  const [modelName, setModelName] = useState("gpt-3.5-turbo-1106");
 
   const completionsApiCall = useCallback(async () => {
     setTimeout(() => {
@@ -23,12 +25,14 @@ const Chatbot = () => {
     }, 300);
 
     setLoading(true);
-    const history =
-      messages
-        .map((msg) => (msg.isUser ? "User: " : "Your response: " + msg.text))
-        .join("/n") +
-      "/n" +
-      "User: ";
+
+    const history = messages.map((msg) => {
+      return { role: msg.isUser ? "user" : "assistant", content: msg.text };
+    });
+    const currentMsg = {
+      role: "user",
+      content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
+    };
     const r = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -36,11 +40,13 @@ const Chatbot = () => {
         Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        // model: "gpt-4",
-        messages: [
-          { role: "user", content: rememberContext ? history + query : query },
-        ],
+        model: modelName,
+        response_format: { type: jsonFormat ? "json_object" : "text" },
+        messages: rememberContext ? [...history, currentMsg] : [currentMsg],
+        // content:
+        //   (rememberContext ? history + query : query) + jsonFormat
+        //     ? "Produce output in JSON format"
+        //     : "",
       }),
     });
 
@@ -87,7 +93,6 @@ const Chatbot = () => {
       }, 0);
 
       const userInput = query;
-      setQuery("");
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -281,6 +286,28 @@ const Chatbot = () => {
               onChange={() => setEnterToSend((p) => !p)}
             />
             <label htmlFor="enterToSend">Enter to send</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              checked={jsonFormat}
+              name="jsonFormat"
+              id="jsonFormat"
+              onChange={() => setJsonFormat((p) => !p)}
+            />
+            <label htmlFor="jsonFormat">JSON mode</label>
+          </div>
+          <div>
+            <select
+              name="model"
+              id="modelName"
+              onChange={(e) => setModelName(e.target.value)}
+            >
+              <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
+              <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+              <option value="gpt-4-1106-preview">gpt-4-1106-preview</option>
+              <option value="gpt-4">gpt-4</option>
+            </select>
           </div>
           <button className="newchat" onClick={() => setMessages([])}>
             &#128465; Clear chat
