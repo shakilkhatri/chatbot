@@ -100,9 +100,12 @@ const Chatbot = () => {
 
     setTimeout(() => {
       const chatbotBox = document.querySelector(".messages");
-      let botMessages = document.getElementsByClassName("bot-message");
-      let lastBotMessage = botMessages[botMessages.length - 1];
-      chatbotBox.scrollTo(0, lastBotMessage?.offsetTop - 100);
+      let messages = document.querySelectorAll(".messages>div");
+      let lastMessage = messages[messages.length - 1];
+      chatbotBox.scrollTo({
+        top: lastMessage?.offsetTop - 100,
+        behavior: "smooth",
+      });
     }, 0);
   }, [messages]);
 
