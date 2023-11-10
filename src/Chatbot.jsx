@@ -19,42 +19,47 @@ const Chatbot = () => {
   const [modelName, setModelName] = useState("gpt-3.5-turbo-1106");
 
   const completionsApiCall = useCallback(async () => {
-    setLoading(true);
-    setQuery("");
-
-    const history = messages.map((msg) => {
-      return { role: msg.isUser ? "user" : "assistant", content: msg.text };
-    });
-    const currentMsg = {
-      role: "user",
-      content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
-    };
-    const r = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: modelName,
-        response_format: { type: jsonFormat ? "json_object" : "text" },
-        messages: rememberContext ? [...history, currentMsg] : [currentMsg],
-      }),
-    });
-
-    if (r.ok) {
-      const data = await r.json();
-      console.log(data);
-      console.log(
-        "Cost : " +
-          ((data.usage.total_tokens * 0.002 * 82.5) / 1000).toFixed(3) +
-          " Paise"
-      );
-      setResponse(data);
-      setAnswer(data.choices[0].message.content);
+    if (!navigator.onLine) {
+      toast.error("Please check your internet connection.");
     } else {
-      // toast.error("Something went wrong!");
-      throw new Error("Something went wrong!");
+      setLoading(true);
+      setQuery("");
+
+      const history = messages.map((msg) => {
+        return { role: msg.isUser ? "user" : "assistant", content: msg.text };
+      });
+      const currentMsg = {
+        role: "user",
+        content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
+      };
+      const r = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: modelName,
+          response_format: { type: jsonFormat ? "json_object" : "text" },
+          messages: rememberContext ? [...history, currentMsg] : [currentMsg],
+        }),
+      });
+
+      if (r.ok) {
+        const data = await r.json();
+        console.log(data);
+        console.log(
+          "Cost : " +
+            ((data.usage.total_tokens * 0.002 * 82.5) / 1000).toFixed(3) +
+            " Paise"
+        );
+        setResponse(data);
+        setAnswer(data.choices[0].message.content);
+      } else {
+        setLoading(false);
+        toast.error("Something went wrong!");
+        throw new Error("Something went wrong!");
+      }
     }
     setLoading(false);
   }, [messages, query, rememberContext]);
