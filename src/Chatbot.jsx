@@ -3,6 +3,9 @@ import "./styles.css";
 import hljs from "highlight.js";
 import toast, { Toaster } from "react-hot-toast";
 import Spinner from "react-bootstrap/Spinner";
+import { calculateCost } from "./utils";
+import { models } from "./constants";
+import CustomModal from "./CustomModal";
 
 // import "highlight.js/styles/default.css";
 // import "highlight.js/styles/atom-one-dark.min.css";
@@ -17,6 +20,10 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
   const [modelName, setModelName] = useState("gpt-3.5-turbo-1106");
+  const [showModal, setShowModal] = useState(false);
+  const [customInstruction, setCustomInstruction] = useState(
+    "Always give me answer in brief"
+  );
 
   const completionsApiCall = useCallback(async () => {
     if (!navigator.onLine) {
@@ -32,6 +39,10 @@ const Chatbot = () => {
         role: "user",
         content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
       };
+      const systemMsg = {
+        role: "system",
+        content: customInstruction,
+      };
       const r = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -41,18 +52,19 @@ const Chatbot = () => {
         body: JSON.stringify({
           model: modelName,
           response_format: { type: jsonFormat ? "json_object" : "text" },
-          messages: rememberContext ? [...history, currentMsg] : [currentMsg],
+          messages: rememberContext
+            ? [systemMsg, ...history, currentMsg]
+            : [systemMsg, currentMsg],
         }),
       });
 
       if (r.ok) {
         const data = await r.json();
         console.log(data);
-        console.log(
-          "Cost : " +
-            ((data.usage.total_tokens * 0.002 * 82.5) / 1000).toFixed(3) +
-            " Paise"
-        );
+        let costString =
+          "Cost : " + calculateCost(modelName, data.usage) + " Rupees";
+        console.log(costString);
+        toast(costString, { icon: "⚠" });
         setResponse(data);
         setAnswer(data.choices[0].message.content);
       } else {
@@ -179,6 +191,14 @@ const Chatbot = () => {
     return formattedText.join("");
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleSaveModal = (instruction) => {
+    setCustomInstruction(instruction);
+  };
+
   return (
     <div className="chatbot">
       <Toaster position="top-center" />
@@ -291,15 +311,30 @@ const Chatbot = () => {
               id="modelName"
               onChange={(e) => setModelName(e.target.value)}
             >
-              <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
-              <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-              <option value="gpt-4-1106-preview">gpt-4-1106-preview</option>
-              <option value="gpt-4">gpt-4</option>
+              {models.map((model) => (
+                <option value={model} key={model}>
+                  {model}
+                </option>
+              ))}
             </select>
           </div>
           <button className="newchat" onClick={() => setMessages([])}>
             &#128465; Clear chat
           </button>
+
+          <button
+            className="customInstructionBtn"
+            onClick={() => setShowModal(true)}
+          >
+            &#9965; Custom Instruction
+          </button>
+          <CustomModal
+            show={showModal}
+            handleClose={handleCloseModal}
+            handleSave={handleSaveModal}
+            initialValue={customInstruction}
+          />
+          {/* <p>Custom Instruction: {customInstruction}</p> */}
         </div>
         <div
           // onSubmit={handleSendMessage}

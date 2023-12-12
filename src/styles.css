@@ -1,3 +1,7 @@
+p {
+  margin: 0 !important;
+}
+
 .App {
   font-family: "Nunito", sans-serif !important;
   text-align: center;
@@ -220,6 +224,17 @@ input[type="checkbox"] {
   border: none;
   padding: 2px 5px;
   color: #b20d0d;
+  cursor: pointer;
+  user-select: none;
+  font-size: small;
+}
+
+.customInstructionBtn {
+  background-color: #007bff;
+  border-radius: 5px;
+  border: none;
+  padding: 2px 5px;
+  color: white;
   cursor: pointer;
   user-select: none;
   font-size: small;

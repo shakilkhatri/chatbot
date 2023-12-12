@@ -24,7 +24,7 @@ const PasswordPage = ({ setHasAccess }) => {
     e.preventDefault();
 
     if (password === pw) {
-      console.log("Password is correct");
+      // console.log("Password is correct");
       setHasAccess(true);
     } else {
       setErrorMessage("Invalid password. Please try again.");
