@@ -59,6 +59,17 @@ const PasswordPage = ({ setHasAccess }) => {
           Submit
         </Button>
       </Form>
+      <div style={{ position: "absolute", bottom: 30 }}>
+        <div>Contact for access:</div>
+        <a href="mailto:khatri.shakilamd@gmail.com">
+          khatri.shakilamd@gmail.com
+        </a>
+        <div>
+          Why? - This application uses openai api to access their ChatGPT
+          models. Hence it needs to be protected to prevent abuse.
+        </div>
+        <div></div>
+      </div>
     </div>
   );
 };
