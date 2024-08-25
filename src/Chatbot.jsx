@@ -7,10 +7,7 @@ import { calculateCost } from "./utils";
 import { models } from "./constants";
 import CustomModal from "./CustomModal";
 
-// import "highlight.js/styles/default.css";
-// import "highlight.js/styles/atom-one-dark.min.css";
-
-const Chatbot = () => {
+const Chatbot = (props) => {
   const [messages, setMessages] = useState([]);
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState();
@@ -19,7 +16,7 @@ const Chatbot = () => {
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
-  const [modelName, setModelName] = useState("gpt-3.5-turbo-1106");
+  const [modelName, setModelName] = useState("gpt-4o-mini");
   const [showModal, setShowModal] = useState(false);
   const [customInstruction, setCustomInstruction] = useState(
     "Always give me answer in brief"
@@ -47,7 +44,7 @@ const Chatbot = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+          Authorization: `Bearer ${props.apikey}`,
         },
         body: JSON.stringify({
           model: modelName,
@@ -222,9 +219,8 @@ const Chatbot = () => {
                     {message.text.split("```").map((item, index) => {
                       if (index % 2 === 0) {
                         return (
-                          <>
+                          <div key={index + "11"}>
                             <pre
-                              key={index + "11"}
                               onClick={() => handleClick(item)}
                               dangerouslySetInnerHTML={{
                                 __html:
@@ -234,7 +230,7 @@ const Chatbot = () => {
                               }}
                             ></pre>
                             <br />
-                          </>
+                          </div>
                         );
                       } else {
                         return (
@@ -312,8 +308,8 @@ const Chatbot = () => {
               onChange={(e) => setModelName(e.target.value)}
             >
               {models.map((model) => (
-                <option value={model} key={model}>
-                  {model}
+                <option value={model.model_name} key={model.model_name}>
+                  {model.model_name}
                 </option>
               ))}
             </select>
