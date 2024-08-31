@@ -13,8 +13,9 @@ export function calculateCost(modelName, usageObject) {
     const totalCostInDollars = inputCostInDollars + outputCostInDollars;
     const conversionRate = 83.8;
     const totalCostInRupees = totalCostInDollars * conversionRate;
+    const totalCostInPaise = totalCostInRupees * 100;
 
-    return totalCostInRupees.toFixed(3);
+    return totalCostInPaise.toFixed(3);
   } else {
     return "Model not found";
   }

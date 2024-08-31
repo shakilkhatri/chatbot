@@ -59,7 +59,7 @@ const Chatbot = (props) => {
         const data = await r.json();
         console.log(data);
         let costString =
-          "Cost : " + calculateCost(modelName, data.usage) + " Rupees";
+          "Cost : " + calculateCost(modelName, data.usage) + " Paise";
         console.log(costString);
         toast(costString, { icon: "⚠" });
         setResponse(data);
