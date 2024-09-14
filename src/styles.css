@@ -1,3 +1,8 @@
+:root {
+  --primaryColor: #2d7d97;
+  --themeColor: #d0e9f1;
+}
+
 p {
   margin: 0 !important;
 }
@@ -102,7 +107,7 @@ body {
   padding: 10px 15px;
   padding-bottom: 9px;
   margin-bottom: 10px;
-  background-color: #d0e9f1;
+  background-color: var(--themeColor);
 }
 
 .chatbot-form {
@@ -134,8 +139,9 @@ body {
 
 .chatbot-form button {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: var(--primaryColor);
+  border: none;
+  box-shadow: 0 0 5px var(--primaryColor);
   height: 60px;
   width: 20%;
   border-radius: 15px;
@@ -143,17 +149,17 @@ body {
 
 .optionBtn {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
   cursor: pointer;
 }
 
-.optionBtn:hover {
-  background-color: #007bffbb;
-  border-color: #007bffbb;
+.optionBtn:hover option:hover {
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
 }
 
 /* width */
@@ -212,6 +218,10 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+input[type="checkbox"]:checked {
+  accent-color: var(--primaryColor);
+}
+
 .checkboxes div {
   display: flex;
   gap: 3px;
@@ -230,7 +240,7 @@ input[type="checkbox"] {
 }
 
 .customInstructionBtn {
-  background-color: #007bff;
+  background-color: var(--primaryColor);
   border-radius: 5px;
   border: none;
   padding: 2px 5px;
