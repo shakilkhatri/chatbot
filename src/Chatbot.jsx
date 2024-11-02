@@ -6,6 +6,8 @@ import Spinner from "react-bootstrap/Spinner";
 import { calculateCost } from "./utils";
 import { models } from "./constants";
 import CustomModal from "./CustomModal";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 const Chatbot = (props) => {
   const [messages, setMessages] = useState([]);
@@ -177,16 +179,32 @@ const Chatbot = (props) => {
     return result;
   }
 
-  function formatTextWithBold(text) {
-    const parts = text.split("**");
-    const formattedText = parts.map((part, index) => {
-      if (index % 2 === 1) {
-        return `<strong key={index}>${part}</strong>`;
+function formatTextWithBoldAndMath(text) {
+  const mathParts = text.split(/(\\\[[\s\S]*?\\\])/);
+
+  const processedParts = mathParts.map((part, mathIndex) => {
+    if (part.startsWith("\\[") && part.endsWith("\\]")) {
+      const mathContent = part.slice(3, -3);
+      const renderedMath = katex.renderToString(mathContent, {
+        displayMode: true,
+        throwOnError: false,
+      });
+      return renderedMath;
+    }
+
+    const boldParts = part.split("**");
+    const formattedBoldText = boldParts.map((boldPart, boldIndex) => {
+      if (boldIndex % 2 === 1) {
+        return `<strong key="bold-${mathIndex}-${boldIndex}">${boldPart}</strong>`;
       }
-      return part;
+      return boldPart;
     });
-    return formattedText.join("");
-  }
+
+    return formattedBoldText.join("");
+  });
+
+  return processedParts.join("");
+}
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -225,8 +243,8 @@ const Chatbot = (props) => {
                               dangerouslySetInnerHTML={{
                                 __html:
                                   index === 0
-                                    ? formatTextWithBold(item)
-                                    : formatTextWithBold(item.slice(2)),
+                                    ? formatTextWithBoldAndMath(item)
+                                    : formatTextWithBoldAndMath(item.slice(2)),
                               }}
                             ></pre>
                             <br />
@@ -351,7 +369,7 @@ const Chatbot = (props) => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 height="1em"
                 width="1em"
