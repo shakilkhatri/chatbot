@@ -6,7 +6,12 @@ export const models = [
   },
   {
     model_name: "gpt-4o",
-    inputCost: "$5",
-    outputCost: "$15",
+    inputCost: "$2.5",
+    outputCost: "$10",
+  },
+  {
+    model_name: "o1-mini",
+    inputCost: "$3",
+    outputCost: "$12",
   },
 ];

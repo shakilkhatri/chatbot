@@ -42,6 +42,12 @@ const Chatbot = (props) => {
         role: "system",
         content: customInstruction,
       };
+      let messagesArray = rememberContext
+        ? [...history, currentMsg]
+        : [currentMsg];
+      if (!modelName.includes("o1")) {
+        messagesArray.unshift(systemMsg);
+      }
       const r = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -51,9 +57,7 @@ const Chatbot = (props) => {
         body: JSON.stringify({
           model: modelName,
           response_format: { type: jsonFormat ? "json_object" : "text" },
-          messages: rememberContext
-            ? [systemMsg, ...history, currentMsg]
-            : [systemMsg, currentMsg],
+          messages: messagesArray,
         }),
       });
 
@@ -179,32 +183,32 @@ const Chatbot = (props) => {
     return result;
   }
 
-function formatTextWithBoldAndMath(text) {
-  const mathParts = text.split(/(\\\[[\s\S]*?\\\])/);
+  function formatTextWithBoldAndMath(text) {
+    const mathParts = text.split(/(\\\[[\s\S]*?\\\])/);
 
-  const processedParts = mathParts.map((part, mathIndex) => {
-    if (part.startsWith("\\[") && part.endsWith("\\]")) {
-      const mathContent = part.slice(3, -3);
-      const renderedMath = katex.renderToString(mathContent, {
-        displayMode: true,
-        throwOnError: false,
-      });
-      return renderedMath;
-    }
-
-    const boldParts = part.split("**");
-    const formattedBoldText = boldParts.map((boldPart, boldIndex) => {
-      if (boldIndex % 2 === 1) {
-        return `<strong key="bold-${mathIndex}-${boldIndex}">${boldPart}</strong>`;
+    const processedParts = mathParts.map((part, mathIndex) => {
+      if (part.startsWith("\\[") && part.endsWith("\\]")) {
+        const mathContent = part.slice(3, -3);
+        const renderedMath = katex.renderToString(mathContent, {
+          displayMode: true,
+          throwOnError: false,
+        });
+        return renderedMath;
       }
-      return boldPart;
+
+      const boldParts = part.split("**");
+      const formattedBoldText = boldParts.map((boldPart, boldIndex) => {
+        if (boldIndex % 2 === 1) {
+          return `<strong key="bold-${mathIndex}-${boldIndex}">${boldPart}</strong>`;
+        }
+        return boldPart;
+      });
+
+      return formattedBoldText.join("");
     });
 
-    return formattedBoldText.join("");
-  });
-
-  return processedParts.join("");
-}
+    return processedParts.join("");
+  }
 
   const handleCloseModal = () => {
     setShowModal(false);
