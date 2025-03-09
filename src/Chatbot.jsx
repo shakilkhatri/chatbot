@@ -20,9 +20,16 @@ const Chatbot = (props) => {
   const [jsonFormat, setJsonFormat] = useState(false);
   const [modelName, setModelName] = useState("gpt-4o-mini");
   const [showModal, setShowModal] = useState(false);
+  const [isCOT, setIsCOT] = useState(false);
+  const [reasoning_effort, setReasoning_effort] = useState("medium");
   const [customInstruction, setCustomInstruction] = useState(
     "Always give me answer in brief"
   );
+
+  useEffect(() => {
+    const modelObj = models.find((model) => model.model_name === modelName);
+    setIsCOT(modelObj.isCOT);
+  }, [modelName]);
 
   const completionsApiCall = useCallback(async () => {
     if (!navigator.onLine) {
@@ -58,6 +65,7 @@ const Chatbot = (props) => {
           model: modelName,
           response_format: { type: jsonFormat ? "json_object" : "text" },
           messages: messagesArray,
+          reasoning_effort: isCOT ? reasoning_effort : undefined,
         }),
       });
 
@@ -336,6 +344,20 @@ const Chatbot = (props) => {
               ))}
             </select>
           </div>
+          {isCOT && (
+            <div>
+              <select
+                name="reasoning_effort"
+                id="reasoning_effort"
+                value={reasoning_effort}
+                onChange={(e) => setReasoning_effort(e.target.value)}
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          )}
           <button className="newchat" onClick={() => setMessages([])}>
             &#128465; Clear chat
           </button>
