@@ -328,7 +328,7 @@ const Chatbot = (props) => {
               id="rememberContext"
               onChange={handlecheckbox1}
             />
-            <label htmlFor="rememberContext">context</label>
+            <label htmlFor="rememberContext">Context</label>
           </div>
           <div>
             <input
