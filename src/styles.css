@@ -36,9 +36,8 @@ body.dark-mode {
   box-shadow: 0 0 10px #00000044;
 }
 
-.dark-mode .chatbot-form button {
-  background-color: var(--secondaryColor);
-  box-shadow: 0 0 5px var(--secondaryColor);
+.dark-mode #sendBtn {
+  background-color: unset;
 }
 
 .dark-mode .newchat {
@@ -144,7 +143,7 @@ body {
   .chatbot-form #query {
     height: var(--formHeightMB) !important;
   }
-  .chatbot-form button {
+  #sendBtn {
     height: var(--formHeightMB) !important;
   }
 }
@@ -158,12 +157,8 @@ body {
     margin-right: 60px;
   }
 
-  .chatbot-form button {
+  #sendBtn {
     min-width: 60px;
-  }
-
-  .inputsDiv {
-    min-width: unset !important;
   }
 
   .messages {
@@ -196,35 +191,48 @@ body {
 
 .chatbot-form {
   padding-top: 5px;
-  /* max-width: 90vw; */
+}
+
+.input-container {
+  position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .chatbot-form #query {
   height: var(--formHeight);
-  flex-grow: 1;
+  width: 100%;
   outline: none !important;
   border: none !important;
-  border-radius: 10px;
+  border-radius: 40px;
   padding: 10px;
+  padding-right: 60px; /* Make space for the button */
+  padding-left: 20px;
   box-shadow: 0 0 10px #412bbd44;
-  margin-right: 10px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .chatbot-form #query:focus {
   border: 1px solid;
 }
 
-.chatbot-form button {
+#sendBtn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #fff;
-  background-color: var(--primaryColor);
+  background-color: unset;
   border: none;
-  box-shadow: 0 0 5px var(--primaryColor);
-  height: var(--formHeight);
-  width: 20%;
-  border-radius: 15px;
+  height: calc(var(--formHeight) - 10px);
+  width: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .optionBtn {
@@ -271,19 +279,6 @@ code {
 
 pre {
   white-space: pre-wrap;
-}
-
-.inputsDiv {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0.3;
-}
-
-#sendBtn {
-  /* flex-grow: 1; */
-  width: 100%;
-  cursor: pointer;
-  user-select: none;
 }
 
 .checkboxes {
