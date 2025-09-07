@@ -1,21 +1,21 @@
 //cost per 1M tokens
 export const models = [
   {
-    model_name: "gpt-4o-mini",
-    inputCost: "$0.15",
-    outputCost: "$0.6",
+    model_name: "gpt-5-nano",
+    inputCost: "$0.05",
+    outputCost: "$0.40",
     isCOT: false,
   },
   {
-    model_name: "gpt-4o",
-    inputCost: "$2.5",
-    outputCost: "$10",
+    model_name: "gpt-5-mini",
+    inputCost: "$0.25",
+    outputCost: "$2.00",
     isCOT: false,
   },
   {
-    model_name: "o3-mini",
-    inputCost: "$1.1",
-    outputCost: "$4.4",
-    isCOT: true,
+    model_name: "gpt-5",
+    inputCost: "$1.25",
+    outputCost: "$10.00",
+    isCOT: false,
   },
 ];

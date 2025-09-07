@@ -18,7 +18,7 @@ const Chatbot = (props) => {
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
-  const [modelName, setModelName] = useState("gpt-4o-mini");
+  const [modelName, setModelName] = useState("gpt-5-nano");
   const [showModal, setShowModal] = useState(false);
   const [isCOT, setIsCOT] = useState(false);
   const [reasoning_effort, setReasoning_effort] = useState("medium");
