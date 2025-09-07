@@ -3,6 +3,64 @@
   --themeColor: #d0e9f1;
   --formHeight: 70px;
   --formHeightMB: 50px;
+  --secondaryColor: #412bbd;
+  --text-color: #000;
+}
+
+body.dark-mode {
+  --primaryColor: #1f1f1f;
+  --themeColor: #444;
+  --secondaryColor: #bb86fc;
+  --text-color: #fff;
+  background-color: #333;
+  color: var(--text-color);
+}
+
+.dark-mode .messagesOuter {
+  box-shadow: 0 0 70px #000000;
+}
+
+.dark-mode .user-message pre {
+  background: var(--secondaryColor) !important;
+  color: #000 !important;
+}
+
+.dark-mode .bot-message pre {
+  background-color: var(--themeColor);
+  box-shadow: 0 0 7px #000;
+}
+
+.dark-mode .chatbot-form #query {
+  background-color: var(--themeColor);
+  color: var(--text-color);
+  box-shadow: 0 0 10px #00000044;
+}
+
+.dark-mode .chatbot-form button {
+  background-color: var(--secondaryColor);
+  box-shadow: 0 0 5px var(--secondaryColor);
+}
+
+.dark-mode .newchat {
+  background-color: #ff828225;
+  color: #ff8282;
+}
+
+.dark-mode .theme-toggle-button {
+  background-color: unset;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--secondaryColor);
+}
+
+.theme-toggle-button {
+  background-color: unset;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px;
+  cursor: pointer;
+  font-size: small;
 }
 
 p {
@@ -263,7 +321,7 @@ input[type="checkbox"]:checked {
 }
 
 .customInstructionBtn {
-  background-color: var(--primaryColor);
+  background-color: unset;
   border-radius: 5px;
   border: none;
   padding: 2px 5px;

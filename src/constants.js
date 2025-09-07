@@ -18,4 +18,10 @@ export const models = [
     outputCost: "$10.00",
     isCOT: false,
   },
+  {
+    model_name: "gpt-4o-mini",
+    inputCost: "$0.15",
+    outputCost: "$0.6",
+    isCOT: false,
+  },
 ];

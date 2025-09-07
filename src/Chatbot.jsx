@@ -8,6 +8,8 @@ import { models } from "./constants";
 import CustomModal from "./CustomModal";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { TrashIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
 
 const Chatbot = (props) => {
   const [messages, setMessages] = useState([]);
@@ -25,6 +27,19 @@ const Chatbot = (props) => {
   const [customInstruction, setCustomInstruction] = useState(
     "Always give me answer in brief"
   );
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     const modelObj = models.find((model) => model.model_name === modelName);
@@ -309,7 +324,7 @@ const Chatbot = (props) => {
               id="rememberContext"
               onChange={handlecheckbox1}
             />
-            <label htmlFor="rememberContext">Remember context</label>
+            <label htmlFor="rememberContext">context</label>
           </div>
           <div>
             <input
@@ -329,7 +344,7 @@ const Chatbot = (props) => {
               id="jsonFormat"
               onChange={() => setJsonFormat((p) => !p)}
             />
-            <label htmlFor="jsonFormat">JSON mode</label>
+            <label htmlFor="jsonFormat">JSON</label>
           </div>
           <div>
             <select
@@ -359,14 +374,27 @@ const Chatbot = (props) => {
             </div>
           )}
           <button className="newchat" onClick={() => setMessages([])}>
-            &#128465; Clear chat
+            <TrashIcon style={{ height: 24, width: 24 }} />
           </button>
 
           <button
             className="customInstructionBtn"
             onClick={() => setShowModal(true)}
           >
-            &#9965; Custom Instruction
+            <Cog6ToothIcon
+              style={{
+                height: 24,
+                width: 24,
+                color: isDarkMode ? "white" : "black",
+              }}
+            />
+          </button>
+          <button className="theme-toggle-button" onClick={toggleTheme}>
+            {isDarkMode ? (
+              <SunIcon style={{ height: 24, width: 24, color: "orange" }} />
+            ) : (
+              <MoonIcon style={{ height: 24, width: 24, color: "black" }} />
+            )}
           </button>
           <CustomModal
             show={showModal}
