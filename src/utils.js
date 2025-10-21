@@ -11,7 +11,7 @@ export function calculateCost(modelName, usageObject) {
       (completion_tokens * parseFloat(selectedModel.outputCost.slice(1))) /
       1000000;
     const totalCostInDollars = inputCostInDollars + outputCostInDollars;
-    const conversionRate = 83.8;
+    const conversionRate = 87.9; // 1 USD = 87.9 INR
     const totalCostInRupees = totalCostInDollars * conversionRate;
     const totalCostInPaise = totalCostInRupees * 100;
 
