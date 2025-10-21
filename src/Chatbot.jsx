@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./styles.css";
 import hljs from "highlight.js";
 import toast, { Toaster } from "react-hot-toast";
@@ -116,7 +116,7 @@ const Chatbot = (props) => {
   const handleSendMessage = useCallback(
     async (e) => {
       // e.preventDefault();
-      document.getElementById("query").blur();
+      textareaRef.current && textareaRef.current.blur();
 
       const userInput = query;
 
@@ -126,6 +126,14 @@ const Chatbot = (props) => {
       ]);
 
       completionsApiCall();
+      // Reset/adjust textarea height after sending (query will be cleared by completionsApiCall)
+      setTimeout(() => {
+        const t = textareaRef.current || document.getElementById("query");
+        if (t) {
+          t.style.height = "";
+          adjustTextAreaHeight(t);
+        }
+      }, 0);
     },
     [query, setQuery, setMessages, completionsApiCall]
   );
@@ -142,7 +150,7 @@ const Chatbot = (props) => {
 
     if (window.innerWidth > 500) {
       const inputbox = document.getElementById("query");
-      inputbox.focus();
+      inputbox && inputbox.focus();
     }
 
     setTimeout(() => {
@@ -154,6 +162,18 @@ const Chatbot = (props) => {
         behavior: "smooth",
       });
     }, 0);
+
+    // adjust textarea height on messages change (new messages may affect layout)
+    const ta = textareaRef.current || document.getElementById("query");
+    if (ta) adjustTextAreaHeight(ta);
+
+    // ensure textarea resizes on window resize
+    const onResize = () => {
+      const t = textareaRef.current || document.getElementById("query");
+      if (t) adjustTextAreaHeight(t);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [messages]);
 
   const handleClick = (text) => {
@@ -169,6 +189,24 @@ const Chatbot = (props) => {
 
   const handleKeyPress = (event) => {
     setQuery(event.target.value);
+    // adjust textarea height as user types
+    const ta = document.getElementById("query");
+    if (ta) {
+      adjustTextAreaHeight(ta);
+    }
+  };
+
+  const textareaRef = useRef(null);
+
+  // Adjusts the textarea height to fit content up to a maximum
+  const adjustTextAreaHeight = (el) => {
+    if (!el) return;
+    // reset height so scrollHeight is calculated correctly
+    el.style.height = "auto";
+    const max = window.innerWidth <= 500 ? 180 : 220; // px cap for mobile/desktop
+    const newHeight = Math.min(el.scrollHeight, max);
+    el.style.height = newHeight + "px";
+    el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
   };
 
   const handlecheckbox1 = () => {
@@ -414,6 +452,7 @@ const Chatbot = (props) => {
               name="userInput"
               placeholder="Type your message..."
               id="query"
+              ref={textareaRef}
               value={query}
               onChange={handleKeyPress}
             />

@@ -3,6 +3,9 @@
   --themeColor: #d0e9f1;
   --formHeight: 70px;
   --formHeightMB: 50px;
+  --query-min-height: 48px;
+  --query-max-height: 220px; /* desktop cap */
+  --query-max-height-mb: 180px; /* mobile cap */
   --secondaryColor: #412bbd;
   --text-color: #000;
 }
@@ -146,7 +149,9 @@ body {
     margin-bottom: 55px;
   }
   .chatbot-form #query {
-    height: var(--formHeightMB) !important;
+    height: var(--query-min-height) !important;
+    max-height: var(--query-max-height-mb) !important;
+    overflow-y: auto;
   }
   #sendBtn {
     height: var(--formHeightMB) !important;
@@ -205,7 +210,10 @@ body {
 }
 
 .chatbot-form #query {
-  height: var(--formHeight);
+  /* allow the textarea to grow with content, but cap height */
+  min-height: var(--query-min-height);
+  max-height: var(--query-max-height);
+  height: var(--query-min-height);
   width: 100%;
   outline: none !important;
   border: none !important;
@@ -216,6 +224,7 @@ body {
   box-shadow: 0 0 10px #412bbd44;
   font-size: 16px;
   box-sizing: border-box;
+  resize: none; /* disable manual resize, we'll auto-resize */
 }
 
 .chatbot-form #query:focus {
