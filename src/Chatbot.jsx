@@ -20,7 +20,8 @@ const Chatbot = (props) => {
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState();
   const [answer, setAnswer] = useState();
-  const [enterToSend, setEnterToSend] = useState(true);
+  // Enter-to-send is hidden and disabled by default per UX requirement
+  const [enterToSend, setEnterToSend] = useState(false);
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
@@ -368,6 +369,9 @@ const Chatbot = (props) => {
             />
             <label htmlFor="rememberContext">Context</label>
           </div>
+          {/* "Enter to send" control hidden from UI but state remains available
+            The original checkbox block is preserved here as a JSX comment so it can be restored easily if needed.
+
           <div>
             <input
               type="checkbox"
@@ -378,6 +382,8 @@ const Chatbot = (props) => {
             />
             <label htmlFor="enterToSend">Enter to send</label>
           </div>
+
+          */}
           <div>
             <input
               type="checkbox"
