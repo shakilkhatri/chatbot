@@ -149,8 +149,9 @@ body {
     margin-bottom: 55px;
   }
   .chatbot-form #query {
-    height: var(--query-min-height) !important;
-    max-height: var(--query-max-height-mb) !important;
+    /* allow JS inline styles to control the height on mobile; keep sensible min/max caps */
+    min-height: var(--query-min-height);
+    max-height: var(--query-max-height-mb);
     overflow-y: auto;
   }
   #sendBtn {
@@ -213,7 +214,6 @@ body {
   /* allow the textarea to grow with content, but cap height */
   min-height: var(--query-min-height);
   max-height: var(--query-max-height);
-  height: var(--query-min-height);
   width: 100%;
   outline: none !important;
   border: none !important;
