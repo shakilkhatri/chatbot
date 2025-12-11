@@ -33,6 +33,7 @@ const Chatbot = (props) => {
     "Always give me answer in brief"
   );
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [conversionRate, setConversionRate] = useState(90); // Default fallback rate
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
@@ -45,6 +46,31 @@ const Chatbot = (props) => {
       document.body.classList.remove("dark-mode");
     }
   }, [isDarkMode]);
+
+  // Fetch USD to INR conversion rate on app load
+  useEffect(() => {
+    const fetchConversionRate = async () => {
+      try {
+        const response = await fetch(
+          "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          // The API returns data in format: { date: "...", usd: { inr: 87.9, ... } }
+          if (data.usd && data.usd.inr) {
+            setConversionRate(data.usd.inr);
+            console.log("USD to INR conversion rate updated:", data.usd.inr);
+          }
+        } else {
+          console.error("Failed to fetch conversion rate");
+        }
+      } catch (error) {
+        console.error("Error fetching conversion rate:", error);
+      }
+    };
+
+    fetchConversionRate();
+  }, []); // Empty dependency array means this runs once on mount
 
   useEffect(() => {
     const modelObj = models.find((model) => model.model_name === modelName);
@@ -93,7 +119,7 @@ const Chatbot = (props) => {
         const data = await r.json();
         console.log(data);
         let costString =
-          "Cost : " + calculateCost(modelName, data.usage) + " Paise";
+          "Cost : " + calculateCost(modelName, data.usage, conversionRate) + " Paise";
         console.log(costString);
         toast(costString, { icon: "⚠" });
         setResponse(data);
@@ -105,7 +131,7 @@ const Chatbot = (props) => {
       }
     }
     setLoading(false);
-  }, [messages, query, rememberContext]);
+  }, [messages, query, rememberContext, conversionRate]);
 
   const processResponse = () => {
     setMessages((prevMessages) => [

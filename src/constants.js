@@ -13,10 +13,10 @@ export const models = [
     isCOT: false,
   },
   {
-    model_name: "gpt-5",
+    model_name: "gpt-5.1",
     inputCost: "$1.25",
     outputCost: "$10.00",
-    isCOT: false,
+    isCOT: true,
   },
   {
     model_name: "gpt-4o-mini",

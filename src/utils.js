@@ -1,6 +1,6 @@
 import { models } from "./constants";
 
-export function calculateCost(modelName, usageObject) {
+export function calculateCost(modelName, usageObject, conversionRate = 87.9) {
   const { prompt_tokens, completion_tokens } = usageObject;
   const selectedModel = models.find((model) => model.model_name === modelName);
 
@@ -11,7 +11,7 @@ export function calculateCost(modelName, usageObject) {
       (completion_tokens * parseFloat(selectedModel.outputCost.slice(1))) /
       1000000;
     const totalCostInDollars = inputCostInDollars + outputCostInDollars;
-    const conversionRate = 87.9; // 1 USD = 87.9 INR
+    // Use the conversion rate passed as parameter (with default fallback)
     const totalCostInRupees = totalCostInDollars * conversionRate;
     const totalCostInPaise = totalCostInRupees * 100;
 
