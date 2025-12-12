@@ -373,6 +373,13 @@ const Chatbot = (props) => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (window.innerWidth > 500 && event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   const removeImage = (imageId) => {
     setPastedImages((prev) => prev.filter((img) => img.id !== imageId));
   };
@@ -683,6 +690,7 @@ const Chatbot = (props) => {
               value={query}
               onChange={handleKeyPress}
               onPaste={handlePaste}
+              onKeyDown={handleKeyDown}
             />
             <button id="sendBtn" onClick={handleSendMessage}>
               <PaperAirplaneIcon
