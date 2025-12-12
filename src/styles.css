@@ -95,6 +95,8 @@ body {
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
+  max-width: 900px;
+  margin: auto;
 }
 
 .messagesOuter {
@@ -264,6 +266,52 @@ body {
   border-color: var(--primaryColor);
 }
 
+select {
+  padding: 4px 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 120px;
+  font-family: "Nunito", sans-serif;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  border-color: var(--secondaryColor);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--secondaryColor);
+  box-shadow: 0 0 0 3px rgba(45, 125, 151, 0.1);
+}
+
+select option {
+  padding: 8px;
+  background-color: #fff;
+  color: #000;
+}
+
+select option:hover {
+  background-color: var(--themeColor);
+}
+
+.dark-mode select {
+  background-color: var(--themeColor);
+  color: var(--text-color);
+  border-color: var(--secondaryColor);
+}
+
+.dark-mode select option {
+  background-color: var(--themeColor);
+  color: var(--text-color);
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -376,10 +424,12 @@ input[type="checkbox"] {
 }
 
 @keyframes blink {
-  0%, 49% {
+  0%,
+  49% {
     opacity: 1;
   }
-  50%, 100% {
+  50%,
+  100% {
     opacity: 0;
   }
 }
@@ -442,7 +492,8 @@ input[type="checkbox"] {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
 }
 
 .message-image-thumbnail {
@@ -464,7 +515,7 @@ input[type="checkbox"] {
     width: 80px;
     height: 80px;
   }
-  
+
   .message-image-thumbnail {
     max-width: 120px;
     max-height: 120px;

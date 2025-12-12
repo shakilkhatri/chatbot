@@ -41,6 +41,7 @@ const Chatbot = (props) => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [currentResponseId, setCurrentResponseId] = useState(null);
   const [pastedImages, setPastedImages] = useState([]);
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
@@ -107,7 +108,7 @@ const Chatbot = (props) => {
             msg.images.forEach((img) => {
               content.push({
                 type: "input_image",
-                source: { type: "base64", data: img.data },
+                image_url: img.dataUrl,
               });
             });
           }
@@ -129,11 +130,9 @@ const Chatbot = (props) => {
         // Add pasted images to current message
         if (pastedImages.length > 0) {
           pastedImages.forEach((img) => {
-            // Extract base64 data (remove data:image/...;base64, prefix)
-            const base64Data = img.dataUrl.split(",")[1];
             currentContent.push({
               type: "input_image",
-              source: { type: "base64", data: base64Data },
+              image_url: img.dataUrl,
             });
           });
         }
@@ -166,7 +165,7 @@ const Chatbot = (props) => {
           text: {
             format: { type: jsonFormat ? "json_object" : "text" },
           },
-          reasoning_effort: isCOT ? reasoning_effort : undefined,
+          reasoning: isCOT ? { effort: reasoning_effort } : undefined,
         };
 
         // Use the OpenAI SDK for the request. In browser environments the SDK
@@ -188,6 +187,9 @@ const Chatbot = (props) => {
           if (chunk.type === "response.created") {
             setCurrentResponseId(chunk.response.id);
           } else if (chunk.type === "response.output_text.delta") {
+            if (isWaitingForResponse) {
+              setIsWaitingForResponse(false);
+            }
             const chunkText = chunk.delta;
             if (chunkText) {
               accumulatedText += chunkText;
@@ -199,9 +201,10 @@ const Chatbot = (props) => {
             }
           }
         }
-        
+
         setLoading(false);
         setIsStreaming(false);
+        setIsWaitingForResponse(false);
 
         if (usageData) {
           const usageForCalc = {
@@ -217,10 +220,10 @@ const Chatbot = (props) => {
         }
 
         setAnswer(accumulatedText);
-        setPastedImages([]);
       } catch (error) {
         setLoading(false);
         setIsStreaming(false);
+        setIsWaitingForResponse(false);
         console.error("Error in responsesApiCall:", error);
         toast.error("An error occurred. Please try again.");
       }
@@ -273,6 +276,8 @@ const Chatbot = (props) => {
         },
       ]);
 
+      setPastedImages([]);
+      setIsWaitingForResponse(true);
       responsesApiCall();
       // Reset/adjust textarea height after sending (query will be cleared by responsesApiCall)
       setTimeout(() => {
@@ -379,7 +384,7 @@ const Chatbot = (props) => {
   };
 
   const handleKeyDown = (event) => {
-    if (window.innerWidth > 500 && event.key === 'Enter' && !event.shiftKey) {
+    if (window.innerWidth > 500 && event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       handleSendMessage();
     }
@@ -490,6 +495,9 @@ const Chatbot = (props) => {
               >
                 {message.isUser ? (
                   <span>
+                    <pre onClick={() => handleClick(message.text)}>
+                      {message.text}
+                    </pre>
                     {message.images && message.images.length > 0 && (
                       <div className="message-images">
                         {message.images.map((img, imgIndex) => (
@@ -502,9 +510,6 @@ const Chatbot = (props) => {
                         ))}
                       </div>
                     )}
-                    <pre onClick={() => handleClick(message.text)}>
-                      {message.text}
-                    </pre>
                   </span>
                 ) : (
                   <span>
@@ -569,7 +574,7 @@ const Chatbot = (props) => {
                 </span>
               </div>
             )}
-            {loading && !isStreaming && (
+            {isWaitingForResponse && (
               <Spinner animation="grow" variant="primary" className="spinner" />
             )}
           </div>
