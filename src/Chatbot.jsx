@@ -193,7 +193,7 @@ const Chatbot = (props) => {
               accumulatedText += chunkText;
               setStreamingMessage(accumulatedText);
             }
-          } else if (chunk.type === "response.done") {
+          } else if (chunk.type === "response.completed") {
             if (chunk.response && chunk.response.usage) {
               usageData = chunk.response.usage;
             }
