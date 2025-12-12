@@ -96,7 +96,12 @@ const Chatbot = (props) => {
       try {
         // Build conversation history in Responses API format
         const history = messages.map((msg) => {
-          const content = [{ type: "input_text", text: msg.text }];
+          const content = [
+            {
+              type: msg.isUser ? "input_text" : "output_text",
+              text: msg.text,
+            },
+          ];
           // Add images if present in message
           if (msg.images && msg.images.length > 0) {
             msg.images.forEach((img) => {
