@@ -8,6 +8,7 @@ import { models } from "./constants";
 import CustomModal from "./CustomModal";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import OpenAI from "openai";
 import { TrashIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 import {
   MoonIcon,
@@ -34,6 +35,12 @@ const Chatbot = (props) => {
   );
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [conversionRate, setConversionRate] = useState(90); // Default fallback rate
+
+  // Streaming and image support states
+  const [streamingMessage, setStreamingMessage] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [currentResponseId, setCurrentResponseId] = useState(null);
+  const [pastedImages, setPastedImages] = useState([]);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
@@ -77,83 +84,192 @@ const Chatbot = (props) => {
     setIsCOT(modelObj.isCOT);
   }, [modelName]);
 
-  const completionsApiCall = useCallback(async () => {
+  const responsesApiCall = useCallback(async () => {
     if (!navigator.onLine) {
       toast.error("Please check your internet connection.");
     } else {
       setLoading(true);
+      setIsStreaming(true);
+      setStreamingMessage("");
       setQuery("");
 
-      const history = messages.map((msg) => {
-        return { role: msg.isUser ? "user" : "assistant", content: msg.text };
-      });
-      const currentMsg = {
-        role: "user",
-        content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
-      };
-      const systemMsg = {
-        role: "system",
-        content: customInstruction,
-      };
-      let messagesArray = rememberContext
-        ? [...history, currentMsg]
-        : [currentMsg];
-      if (!modelName.includes("o1")) {
-        messagesArray.unshift(systemMsg);
-      }
-      const r = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${props.apikey}`,
-        },
-        body: JSON.stringify({
-          model: modelName,
-          response_format: { type: jsonFormat ? "json_object" : "text" },
-          messages: messagesArray,
-          reasoning_effort: isCOT ? reasoning_effort : undefined,
-        }),
-      });
+      try {
+        // Build conversation history in Responses API format
+        const history = messages.map((msg) => {
+          const content = [{ type: "input_text", text: msg.text }];
+          // Add images if present in message
+          if (msg.images && msg.images.length > 0) {
+            msg.images.forEach((img) => {
+              content.push({
+                type: "input_image",
+                source: { type: "base64", data: img.data },
+              });
+            });
+          }
+          return {
+            type: "message",
+            role: msg.isUser ? "user" : "assistant",
+            content: content,
+          };
+        });
 
-      if (r.ok) {
-        const data = await r.json();
-        console.log(data);
-        let costString =
-          "Cost : " + calculateCost(modelName, data.usage, conversionRate) + " Paise";
-        console.log(costString);
-        toast(costString, { icon: "⚠" });
-        setResponse(data);
-        setAnswer(data.choices[0].message.content);
-      } else {
+        // Build current message content
+        const currentContent = [
+          {
+            type: "input_text",
+            text: query + (jsonFormat ? ". Produce output in JSON format" : ""),
+          },
+        ];
+
+        // Add pasted images to current message
+        if (pastedImages.length > 0) {
+          pastedImages.forEach((img) => {
+            // Extract base64 data (remove data:image/...;base64, prefix)
+            const base64Data = img.dataUrl.split(",")[1];
+            currentContent.push({
+              type: "input_image",
+              source: { type: "base64", data: base64Data },
+            });
+          });
+        }
+
+        const currentMsg = {
+          type: "message",
+          role: "user",
+          content: currentContent,
+        };
+
+        const systemMsg = {
+          type: "message",
+          role: "system",
+          content: [{ type: "input_text", text: customInstruction }],
+        };
+
+        let inputArray = rememberContext
+          ? [...history, currentMsg]
+          : [currentMsg];
+
+        if (!modelName.includes("o1")) {
+          inputArray.unshift(systemMsg);
+        }
+
+        const requestBody = {
+          model: modelName,
+          input: inputArray,
+          // Use non-streaming SDK call here
+          stream: false,
+          text: {
+            format: { type: jsonFormat ? "json_object" : "text" },
+          },
+          reasoning_effort: isCOT ? reasoning_effort : undefined,
+        };
+
+        // Use the OpenAI SDK for the request. In browser environments the SDK
+        // may return a streaming body when `stream: true` is set. We set
+        // `dangerouslyAllowBrowser: true` because this is running in the
+        // browser; ensure you understand the security implications.
+        requestBody.stream = true;
+        const client = new OpenAI({
+          apiKey: props.apikey,
+          dangerouslyAllowBrowser: true,
+        });
+
+        const stream = await client.responses.create(requestBody);
+
+        let accumulatedText = "";
+        let usageData = null;
+
+        for await (const chunk of stream) {
+          if (chunk.type === "response.created") {
+            setCurrentResponseId(chunk.response.id);
+          } else if (chunk.type === "response.output_text.delta") {
+            const chunkText = chunk.delta;
+            if (chunkText) {
+              accumulatedText += chunkText;
+              setStreamingMessage(accumulatedText);
+            }
+          } else if (chunk.type === "response.done") {
+            if (chunk.response && chunk.response.usage) {
+              usageData = chunk.response.usage;
+            }
+          }
+        }
+        
         setLoading(false);
-        toast.error("Something went wrong!");
-        throw new Error("Something went wrong!");
+        setIsStreaming(false);
+
+        if (usageData) {
+          const usageForCalc = {
+            prompt_tokens: usageData.input_tokens,
+            completion_tokens: usageData.output_tokens,
+          };
+          let costString =
+            "Cost : " +
+            calculateCost(modelName, usageForCalc, conversionRate) +
+            " Paise";
+          console.log(costString);
+          toast(costString, { icon: "⚠" });
+        }
+
+        setAnswer(accumulatedText);
+        setPastedImages([]);
+      } catch (error) {
+        setLoading(false);
+        setIsStreaming(false);
+        console.error("Error in responsesApiCall:", error);
+        toast.error("An error occurred. Please try again.");
       }
     }
-    setLoading(false);
-  }, [messages, query, rememberContext, conversionRate]);
+  }, [
+    messages,
+    query,
+    rememberContext,
+    conversionRate,
+    pastedImages,
+    jsonFormat,
+    modelName,
+    customInstruction,
+    isCOT,
+    reasoning_effort,
+    props.apikey,
+  ]);
 
   const processResponse = () => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: answer, isUser: false },
-    ]);
+    if (answer) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: answer, isUser: false },
+      ]);
+      setStreamingMessage("");
+    }
   };
 
   const handleSendMessage = useCallback(
     async (e) => {
       // e.preventDefault();
+      if (isStreaming || loading) return; // Prevent sending while streaming
+
       textareaRef.current && textareaRef.current.blur();
 
       const userInput = query;
 
+      // Store images with the message
+      const messageImages = pastedImages.map((img) => ({
+        dataUrl: img.dataUrl,
+        data: img.dataUrl.split(",")[1], // Store base64 data
+      }));
+
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: userInput, isUser: true },
+        {
+          text: userInput,
+          isUser: true,
+          images: messageImages.length > 0 ? messageImages : undefined,
+        },
       ]);
 
-      completionsApiCall();
-      // Reset/adjust textarea height after sending (query will be cleared by completionsApiCall)
+      responsesApiCall();
+      // Reset/adjust textarea height after sending (query will be cleared by responsesApiCall)
       setTimeout(() => {
         const t = textareaRef.current || document.getElementById("query");
         if (t) {
@@ -162,12 +278,20 @@ const Chatbot = (props) => {
         }
       }, 0);
     },
-    [query, setQuery, setMessages, completionsApiCall]
+    [
+      query,
+      setQuery,
+      setMessages,
+      responsesApiCall,
+      isStreaming,
+      loading,
+      pastedImages,
+    ]
   );
 
   useEffect(() => {
-    response && processResponse();
-  }, [response]);
+    answer && processResponse();
+  }, [answer]);
 
   useEffect(() => {
     let codeElements = document.getElementsByTagName("code");
@@ -221,6 +345,36 @@ const Chatbot = (props) => {
     if (ta) {
       adjustTextAreaHeight(ta);
     }
+  };
+
+  const handlePaste = async (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    for (let item of items) {
+      if (item.type.startsWith("image/")) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            setPastedImages((prev) => [
+              ...prev,
+              {
+                id: Date.now() + Math.random(),
+                dataUrl: event.target.result,
+                file: file,
+              },
+            ]);
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    }
+  };
+
+  const removeImage = (imageId) => {
+    setPastedImages((prev) => prev.filter((img) => img.id !== imageId));
   };
 
   const textareaRef = useRef(null);
@@ -324,6 +478,18 @@ const Chatbot = (props) => {
               >
                 {message.isUser ? (
                   <span>
+                    {message.images && message.images.length > 0 && (
+                      <div className="message-images">
+                        {message.images.map((img, imgIndex) => (
+                          <img
+                            key={imgIndex}
+                            src={img.dataUrl}
+                            alt={`Uploaded ${imgIndex + 1}`}
+                            className="message-image-thumbnail"
+                          />
+                        ))}
+                      </div>
+                    )}
                     <pre onClick={() => handleClick(message.text)}>
                       {message.text}
                     </pre>
@@ -378,7 +544,20 @@ const Chatbot = (props) => {
                 )}
               </div>
             ))}
-            {loading && (
+            {isStreaming && streamingMessage && (
+              <div className="bot-message">
+                <span>
+                  <pre
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        formatTextWithBoldAndMath(streamingMessage) +
+                        '<span class="streaming-cursor">▊</span>',
+                    }}
+                  ></pre>
+                </span>
+              </div>
+            )}
+            {loading && !isStreaming && (
               <Spinner animation="grow" variant="primary" className="spinner" />
             )}
           </div>
@@ -478,6 +657,22 @@ const Chatbot = (props) => {
           />
         </div>
         <div className="chatbot-form">
+          {pastedImages.length > 0 && (
+            <div className="image-preview-container">
+              {pastedImages.map((img) => (
+                <div key={img.id} className="image-preview-item">
+                  <img src={img.dataUrl} alt="Preview" />
+                  <button
+                    className="image-remove-btn"
+                    onClick={() => removeImage(img.id)}
+                    title="Remove image"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="input-container">
             <textarea
               type="text"
@@ -487,6 +682,7 @@ const Chatbot = (props) => {
               ref={textareaRef}
               value={query}
               onChange={handleKeyPress}
+              onPaste={handlePaste}
             />
             <button id="sendBtn" onClick={handleSendMessage}>
               <PaperAirplaneIcon
