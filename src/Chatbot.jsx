@@ -26,10 +26,10 @@ const Chatbot = (props) => {
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
-  const [modelName, setModelName] = useState("gpt-5-nano");
+  const [modelName, setModelName] = useState("gpt-4o-mini");
   const [showModal, setShowModal] = useState(false);
   const [isCOT, setIsCOT] = useState(false);
-  const [reasoning_effort, setReasoning_effort] = useState("medium");
+  const [reasoning_effort, setReasoning_effort] = useState("none");
   const [customInstruction, setCustomInstruction] = useState(
     "Always give me answer in brief"
   );
@@ -637,9 +637,11 @@ const Chatbot = (props) => {
                 value={reasoning_effort}
                 onChange={(e) => setReasoning_effort(e.target.value)}
               >
+                <option value="none">None</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
+                <option value="xhigh">Extra High</option>
               </select>
             </div>
           )}
