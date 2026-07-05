@@ -1,43 +1,22 @@
 import { useState, useEffect } from "react";
+import defaultModels from "./defaultModels.json";
 
 const CACHE_KEY = "openrouter_models_cache";
 const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 1 day
 
-// Add or remove model IDs here to curate which models appear in the dropdown.
-// Pricing is fetched dynamically from OpenRouter for whichever IDs are listed.
+/**
+ * Add or remove model IDs here to curate which models appear in the dropdown.
+ *
+ * Pricing is fetched from OpenRouter and cached in localStorage.
+ * `src/defaultModels.json` serves as the initial data so first-time visitors
+ * see real prices without waiting for an API call.
+ */
 export const MODEL_IDS = [
   "openai/gpt-4o-mini",
   "openai/gpt-5.4-nano",
-  "openai/gpt-5.4-mini",
-  "openai/gpt-5.4",
-];
-
-// Fallback pricing used when the API is unreachable and no cache exists.
-const FALLBACK_MODELS = [
-  {
-    model_name: "openai/gpt-4o-mini",
-    inputCost: "$0.15",
-    outputCost: "$0.60",
-    isCOT: false,
-  },
-  {
-    model_name: "openai/gpt-5.4-nano",
-    inputCost: "$0.20",
-    outputCost: "$1.25",
-    isCOT: true,
-  },
-  {
-    model_name: "openai/gpt-5.4-mini",
-    inputCost: "$0.75",
-    outputCost: "$4.50",
-    isCOT: true,
-  },
-  {
-    model_name: "openai/gpt-5.4",
-    inputCost: "$2.50",
-    outputCost: "$15.00",
-    isCOT: true,
-  },
+  "google/gemini-3.5-flash",
+  "deepseek/deepseek-v4-flash",
+  "anthropic/claude-haiku-4.5",
 ];
 
 /**
@@ -114,25 +93,24 @@ function getCurated(fullList) {
  * useModels — fetch model pricing from OpenRouter, cache in localStorage.
  *
  * Behaviour:
- *  1. On very first render, read localStorage synchronously so cached data
- *     appears instantly (no flash of fallbacks).
- *  2. After mount, check if cache is stale (older than 1 day). If so, fetch
- *     fresh data from the API in the background and update state + cache.
- *  3. If no cache exists at all, show fallback prices while fetching.
- *
- * Returns { models, loading }:
- *  - models  – the curated model array ready to render.
- *  - loading – true only while the network request is in flight and no cache
- *              was available; useful for a gentle loading indicator.
+ *  1. On very first render, read localStorage synchronously.  If a previous
+ *     cache exists → use it instantly.  Otherwise fall back to the static
+ *     `src/defaultModels.json` snapshot committed in the repo.
+ *  2. After mount, check if the cache is stale (older than 1 day) or missing.
+ *     If so, fetch fresh data from the API in the background and update
+ *     state + localStorage.
+ *  3. If the API fetch fails and no cache exists, the static snapshot still
+ *     provides working data.
  */
 export function useModels() {
   const [models, setModels] = useState(() => {
     const cached = loadCachedModels();
     if (cached) {
       const curated = getCurated(cached.models);
-      return curated.length > 0 ? curated : FALLBACK_MODELS;
+      if (curated.length > 0) return curated;
     }
-    return FALLBACK_MODELS;
+    // No cache → use the committed snapshot
+    return getCurated(defaultModels);
   });
   const [loading, setLoading] = useState(false);
 
@@ -145,7 +123,7 @@ export function useModels() {
       return; // cache is still fresh
     }
 
-    // Stale or no cache → fetch from API
+    // Stale or no cache → fetch from API in the background
     (async () => {
       try {
         const fresh = await fetchAllModels();

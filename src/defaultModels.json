@@ -1,0 +1,2042 @@
+[
+  {
+    "model_name": "~anthropic/claude-fable-latest",
+    "inputCost": "$10.00",
+    "outputCost": "$50.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~anthropic/claude-haiku-latest",
+    "inputCost": "$1.00",
+    "outputCost": "$5.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~anthropic/claude-opus-latest",
+    "inputCost": "$5.00",
+    "outputCost": "$25.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~anthropic/claude-sonnet-latest",
+    "inputCost": "$2.00",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~google/gemini-flash-latest",
+    "inputCost": "$1.50",
+    "outputCost": "$9.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~google/gemini-pro-latest",
+    "inputCost": "$2.00",
+    "outputCost": "$12.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~moonshotai/kimi-latest",
+    "inputCost": "$0.66",
+    "outputCost": "$3.41",
+    "isCOT": true
+  },
+  {
+    "model_name": "~openai/gpt-latest",
+    "inputCost": "$5.00",
+    "outputCost": "$30.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "~openai/gpt-mini-latest",
+    "inputCost": "$0.75",
+    "outputCost": "$4.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "ai21/jamba-large-1.7",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "aion-labs/aion-1.0",
+    "inputCost": "$4.00",
+    "outputCost": "$8.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "aion-labs/aion-1.0-mini",
+    "inputCost": "$0.70",
+    "outputCost": "$1.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "aion-labs/aion-2.0",
+    "inputCost": "$0.80",
+    "outputCost": "$1.60",
+    "isCOT": true
+  },
+  {
+    "model_name": "aion-labs/aion-rp-llama-3.1-8b",
+    "inputCost": "$0.80",
+    "outputCost": "$1.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "allenai/olmo-3-32b-think",
+    "inputCost": "$0.15",
+    "outputCost": "$0.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "amazon/nova-2-lite-v1",
+    "inputCost": "$0.30",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "amazon/nova-lite-v1",
+    "inputCost": "$0.06",
+    "outputCost": "$0.24",
+    "isCOT": false
+  },
+  {
+    "model_name": "amazon/nova-micro-v1",
+    "inputCost": "$0.04",
+    "outputCost": "$0.14",
+    "isCOT": false
+  },
+  {
+    "model_name": "amazon/nova-premier-v1",
+    "inputCost": "$2.50",
+    "outputCost": "$12.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "amazon/nova-pro-v1",
+    "inputCost": "$0.80",
+    "outputCost": "$3.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "anthracite-org/magnum-v4-72b",
+    "inputCost": "$3.00",
+    "outputCost": "$5.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "anthropic/claude-3-haiku",
+    "inputCost": "$0.25",
+    "outputCost": "$1.25",
+    "isCOT": false
+  },
+  {
+    "model_name": "anthropic/claude-fable-5",
+    "inputCost": "$10.00",
+    "outputCost": "$50.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-haiku-4.5",
+    "inputCost": "$1.00",
+    "outputCost": "$5.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4",
+    "inputCost": "$15.00",
+    "outputCost": "$75.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.1",
+    "inputCost": "$15.00",
+    "outputCost": "$75.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.5",
+    "inputCost": "$5.00",
+    "outputCost": "$25.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.6",
+    "inputCost": "$5.00",
+    "outputCost": "$25.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.7",
+    "inputCost": "$5.00",
+    "outputCost": "$25.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.7-fast",
+    "inputCost": "$30.00",
+    "outputCost": "$150.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.8",
+    "inputCost": "$5.00",
+    "outputCost": "$25.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-opus-4.8-fast",
+    "inputCost": "$10.00",
+    "outputCost": "$50.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-sonnet-4",
+    "inputCost": "$3.00",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-sonnet-4.5",
+    "inputCost": "$3.00",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-sonnet-4.6",
+    "inputCost": "$3.00",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "anthropic/claude-sonnet-5",
+    "inputCost": "$2.00",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "arcee-ai/coder-large",
+    "inputCost": "$0.50",
+    "outputCost": "$0.80",
+    "isCOT": false
+  },
+  {
+    "model_name": "arcee-ai/trinity-large-thinking",
+    "inputCost": "$0.25",
+    "outputCost": "$0.80",
+    "isCOT": true
+  },
+  {
+    "model_name": "arcee-ai/trinity-mini",
+    "inputCost": "$0.04",
+    "outputCost": "$0.15",
+    "isCOT": true
+  },
+  {
+    "model_name": "arcee-ai/virtuoso-large",
+    "inputCost": "$0.75",
+    "outputCost": "$1.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "baidu/ernie-4.5-vl-424b-a47b",
+    "inputCost": "$0.42",
+    "outputCost": "$1.25",
+    "isCOT": true
+  },
+  {
+    "model_name": "bytedance-seed/seed-1.6",
+    "inputCost": "$0.25",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "bytedance-seed/seed-1.6-flash",
+    "inputCost": "$0.07",
+    "outputCost": "$0.30",
+    "isCOT": true
+  },
+  {
+    "model_name": "bytedance-seed/seed-2.0-lite",
+    "inputCost": "$0.25",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "bytedance-seed/seed-2.0-mini",
+    "inputCost": "$0.10",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "bytedance/ui-tars-1.5-7b",
+    "inputCost": "$0.10",
+    "outputCost": "$0.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "cohere/command-a",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "cohere/command-r-08-2024",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "cohere/command-r-plus-08-2024",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "cohere/command-r7b-12-2024",
+    "inputCost": "$0.04",
+    "outputCost": "$0.15",
+    "isCOT": false
+  },
+  {
+    "model_name": "cohere/north-mini-code:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepcogito/cogito-v2.1-671b",
+    "inputCost": "$1.25",
+    "outputCost": "$1.25",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-chat",
+    "inputCost": "$0.20",
+    "outputCost": "$0.80",
+    "isCOT": false
+  },
+  {
+    "model_name": "deepseek/deepseek-chat-v3-0324",
+    "inputCost": "$0.24",
+    "outputCost": "$0.90",
+    "isCOT": false
+  },
+  {
+    "model_name": "deepseek/deepseek-chat-v3.1",
+    "inputCost": "$0.21",
+    "outputCost": "$0.79",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-r1",
+    "inputCost": "$0.70",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-r1-0528",
+    "inputCost": "$0.50",
+    "outputCost": "$2.15",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-r1-distill-llama-70b",
+    "inputCost": "$0.80",
+    "outputCost": "$0.80",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-v3.1-terminus",
+    "inputCost": "$0.27",
+    "outputCost": "$0.95",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-v3.2",
+    "inputCost": "$0.23",
+    "outputCost": "$0.34",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-v3.2-exp",
+    "inputCost": "$0.27",
+    "outputCost": "$0.41",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-v4-flash",
+    "inputCost": "$0.09",
+    "outputCost": "$0.18",
+    "isCOT": true
+  },
+  {
+    "model_name": "deepseek/deepseek-v4-pro",
+    "inputCost": "$0.43",
+    "outputCost": "$0.87",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-flash",
+    "inputCost": "$0.30",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-flash-image",
+    "inputCost": "$0.30",
+    "outputCost": "$2.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemini-2.5-flash-lite",
+    "inputCost": "$0.10",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-flash-lite-preview-09-2025",
+    "inputCost": "$0.10",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-pro",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-pro-preview",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-2.5-pro-preview-05-06",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3-flash-preview",
+    "inputCost": "$0.50",
+    "outputCost": "$3.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3-pro-image",
+    "inputCost": "$2.00",
+    "outputCost": "$12.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3-pro-image-preview",
+    "inputCost": "$2.00",
+    "outputCost": "$12.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-flash-image",
+    "inputCost": "$0.50",
+    "outputCost": "$3.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-flash-image-preview",
+    "inputCost": "$0.50",
+    "outputCost": "$3.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-flash-lite",
+    "inputCost": "$0.25",
+    "outputCost": "$1.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-flash-lite-image",
+    "inputCost": "$0.25",
+    "outputCost": "$1.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-flash-lite-preview",
+    "inputCost": "$0.25",
+    "outputCost": "$1.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-pro-preview",
+    "inputCost": "$2.00",
+    "outputCost": "$12.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.1-pro-preview-customtools",
+    "inputCost": "$2.00",
+    "outputCost": "$12.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemini-3.5-flash",
+    "inputCost": "$1.50",
+    "outputCost": "$9.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemma-2-27b-it",
+    "inputCost": "$0.65",
+    "outputCost": "$0.65",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemma-3-12b-it",
+    "inputCost": "$0.05",
+    "outputCost": "$0.15",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemma-3-27b-it",
+    "inputCost": "$0.08",
+    "outputCost": "$0.16",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemma-3-4b-it",
+    "inputCost": "$0.05",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemma-3n-e4b-it",
+    "inputCost": "$0.06",
+    "outputCost": "$0.12",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/gemma-4-26b-a4b-it",
+    "inputCost": "$0.06",
+    "outputCost": "$0.33",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemma-4-26b-a4b-it:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemma-4-31b-it",
+    "inputCost": "$0.12",
+    "outputCost": "$0.35",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/gemma-4-31b-it:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "google/lyria-3-clip-preview",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "google/lyria-3-pro-preview",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "gryphe/mythomax-l2-13b",
+    "inputCost": "$0.06",
+    "outputCost": "$0.06",
+    "isCOT": false
+  },
+  {
+    "model_name": "ibm-granite/granite-4.0-h-micro",
+    "inputCost": "$0.02",
+    "outputCost": "$0.11",
+    "isCOT": false
+  },
+  {
+    "model_name": "ibm-granite/granite-4.1-8b",
+    "inputCost": "$0.05",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "inception/mercury-2",
+    "inputCost": "$0.25",
+    "outputCost": "$0.75",
+    "isCOT": true
+  },
+  {
+    "model_name": "inclusionai/ling-2.6-1t",
+    "inputCost": "$0.07",
+    "outputCost": "$0.63",
+    "isCOT": false
+  },
+  {
+    "model_name": "inclusionai/ling-2.6-flash",
+    "inputCost": "$0.01",
+    "outputCost": "$0.03",
+    "isCOT": false
+  },
+  {
+    "model_name": "inclusionai/ring-2.6-1t",
+    "inputCost": "$0.07",
+    "outputCost": "$0.63",
+    "isCOT": true
+  },
+  {
+    "model_name": "inflection/inflection-3-pi",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "inflection/inflection-3-productivity",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "kwaipilot/kat-coder-pro-v2",
+    "inputCost": "$0.30",
+    "outputCost": "$1.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "liquid/lfm-2-24b-a2b",
+    "inputCost": "$0.03",
+    "outputCost": "$0.12",
+    "isCOT": false
+  },
+  {
+    "model_name": "liquid/lfm-2.5-1.2b-instruct:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "liquid/lfm-2.5-1.2b-thinking:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "mancer/weaver",
+    "inputCost": "$0.75",
+    "outputCost": "$1.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3-8b-instruct",
+    "inputCost": "$0.14",
+    "outputCost": "$0.14",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.1-70b-instruct",
+    "inputCost": "$0.40",
+    "outputCost": "$0.40",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.1-8b-instruct",
+    "inputCost": "$0.02",
+    "outputCost": "$0.03",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.2-11b-vision-instruct",
+    "inputCost": "$0.34",
+    "outputCost": "$0.34",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.2-1b-instruct",
+    "inputCost": "$0.03",
+    "outputCost": "$0.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.2-3b-instruct",
+    "inputCost": "$0.05",
+    "outputCost": "$0.34",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.2-3b-instruct:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.3-70b-instruct",
+    "inputCost": "$0.10",
+    "outputCost": "$0.32",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-3.3-70b-instruct:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-4-maverick",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-4-scout",
+    "inputCost": "$0.10",
+    "outputCost": "$0.30",
+    "isCOT": false
+  },
+  {
+    "model_name": "meta-llama/llama-guard-4-12b",
+    "inputCost": "$0.18",
+    "outputCost": "$0.18",
+    "isCOT": false
+  },
+  {
+    "model_name": "microsoft/phi-4",
+    "inputCost": "$0.07",
+    "outputCost": "$0.14",
+    "isCOT": false
+  },
+  {
+    "model_name": "microsoft/wizardlm-2-8x22b",
+    "inputCost": "$0.62",
+    "outputCost": "$0.62",
+    "isCOT": false
+  },
+  {
+    "model_name": "minimax/minimax-01",
+    "inputCost": "$0.20",
+    "outputCost": "$1.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "minimax/minimax-m1",
+    "inputCost": "$0.40",
+    "outputCost": "$2.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "minimax/minimax-m2",
+    "inputCost": "$0.26",
+    "outputCost": "$1.02",
+    "isCOT": true
+  },
+  {
+    "model_name": "minimax/minimax-m2-her",
+    "inputCost": "$0.30",
+    "outputCost": "$1.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "minimax/minimax-m2.1",
+    "inputCost": "$0.30",
+    "outputCost": "$1.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "minimax/minimax-m2.5",
+    "inputCost": "$0.12",
+    "outputCost": "$0.48",
+    "isCOT": true
+  },
+  {
+    "model_name": "minimax/minimax-m2.7",
+    "inputCost": "$0.18",
+    "outputCost": "$0.72",
+    "isCOT": true
+  },
+  {
+    "model_name": "minimax/minimax-m3",
+    "inputCost": "$0.30",
+    "outputCost": "$1.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "mistralai/codestral-2508",
+    "inputCost": "$0.30",
+    "outputCost": "$0.90",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/devstral-2512",
+    "inputCost": "$0.40",
+    "outputCost": "$2.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/ministral-14b-2512",
+    "inputCost": "$0.20",
+    "outputCost": "$0.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/ministral-3b-2512",
+    "inputCost": "$0.10",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/ministral-8b-2512",
+    "inputCost": "$0.15",
+    "outputCost": "$0.15",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-large",
+    "inputCost": "$2.00",
+    "outputCost": "$6.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-large-2407",
+    "inputCost": "$2.00",
+    "outputCost": "$6.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-large-2512",
+    "inputCost": "$0.50",
+    "outputCost": "$1.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-medium-3",
+    "inputCost": "$0.40",
+    "outputCost": "$2.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-medium-3-5",
+    "inputCost": "$1.50",
+    "outputCost": "$7.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "mistralai/mistral-medium-3.1",
+    "inputCost": "$0.40",
+    "outputCost": "$2.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-nemo",
+    "inputCost": "$0.02",
+    "outputCost": "$0.03",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-saba",
+    "inputCost": "$0.20",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-small-24b-instruct-2501",
+    "inputCost": "$0.05",
+    "outputCost": "$0.08",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-small-2603",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": true
+  },
+  {
+    "model_name": "mistralai/mistral-small-3.1-24b-instruct",
+    "inputCost": "$0.35",
+    "outputCost": "$0.55",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mistral-small-3.2-24b-instruct",
+    "inputCost": "$0.07",
+    "outputCost": "$0.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/mixtral-8x22b-instruct",
+    "inputCost": "$2.00",
+    "outputCost": "$6.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "mistralai/voxtral-small-24b-2507",
+    "inputCost": "$0.10",
+    "outputCost": "$0.30",
+    "isCOT": false
+  },
+  {
+    "model_name": "moonshotai/kimi-k2",
+    "inputCost": "$0.57",
+    "outputCost": "$2.30",
+    "isCOT": false
+  },
+  {
+    "model_name": "moonshotai/kimi-k2-0905",
+    "inputCost": "$0.60",
+    "outputCost": "$2.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "moonshotai/kimi-k2-thinking",
+    "inputCost": "$0.60",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "moonshotai/kimi-k2.5",
+    "inputCost": "$0.38",
+    "outputCost": "$2.02",
+    "isCOT": true
+  },
+  {
+    "model_name": "moonshotai/kimi-k2.6",
+    "inputCost": "$0.66",
+    "outputCost": "$3.41",
+    "isCOT": true
+  },
+  {
+    "model_name": "moonshotai/kimi-k2.7-code",
+    "inputCost": "$0.74",
+    "outputCost": "$3.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "morph/morph-v3-fast",
+    "inputCost": "$0.80",
+    "outputCost": "$1.20",
+    "isCOT": false
+  },
+  {
+    "model_name": "morph/morph-v3-large",
+    "inputCost": "$0.90",
+    "outputCost": "$1.90",
+    "isCOT": false
+  },
+  {
+    "model_name": "nex-agi/nex-n2-pro",
+    "inputCost": "$0.25",
+    "outputCost": "$1.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nousresearch/hermes-3-llama-3.1-405b",
+    "inputCost": "$1.00",
+    "outputCost": "$1.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "nousresearch/hermes-3-llama-3.1-405b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "nousresearch/hermes-3-llama-3.1-70b",
+    "inputCost": "$0.70",
+    "outputCost": "$0.70",
+    "isCOT": false
+  },
+  {
+    "model_name": "nousresearch/hermes-4-405b",
+    "inputCost": "$1.00",
+    "outputCost": "$3.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nousresearch/hermes-4-70b",
+    "inputCost": "$0.13",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
+    "inputCost": "$0.40",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-nano-30b-a3b",
+    "inputCost": "$0.05",
+    "outputCost": "$0.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-nano-30b-a3b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-super-120b-a12b",
+    "inputCost": "$0.08",
+    "outputCost": "$0.45",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-super-120b-a12b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-ultra-550b-a55b",
+    "inputCost": "$0.50",
+    "outputCost": "$2.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-3.5-content-safety:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-nano-12b-v2-vl:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "nvidia/nemotron-nano-9b-v2:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-3.5-turbo",
+    "inputCost": "$0.50",
+    "outputCost": "$1.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-3.5-turbo-0613",
+    "inputCost": "$1.00",
+    "outputCost": "$2.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-3.5-turbo-16k",
+    "inputCost": "$3.00",
+    "outputCost": "$4.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-3.5-turbo-instruct",
+    "inputCost": "$1.50",
+    "outputCost": "$2.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4",
+    "inputCost": "$30.00",
+    "outputCost": "$60.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4-turbo",
+    "inputCost": "$10.00",
+    "outputCost": "$30.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4-turbo-preview",
+    "inputCost": "$10.00",
+    "outputCost": "$30.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4.1",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4.1-mini",
+    "inputCost": "$0.40",
+    "outputCost": "$1.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4.1-nano",
+    "inputCost": "$0.10",
+    "outputCost": "$0.40",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-2024-05-13",
+    "inputCost": "$5.00",
+    "outputCost": "$15.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-2024-08-06",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-2024-11-20",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-mini",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-mini-2024-07-18",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-mini-search-preview",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-4o-search-preview",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-5",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-chat",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-5-codex",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-image",
+    "inputCost": "$10.00",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-image-mini",
+    "inputCost": "$2.50",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-mini",
+    "inputCost": "$0.25",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-nano",
+    "inputCost": "$0.05",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5-pro",
+    "inputCost": "$15.00",
+    "outputCost": "$120.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.1",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.1-chat",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-5.1-codex",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.1-codex-max",
+    "inputCost": "$1.25",
+    "outputCost": "$10.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.1-codex-mini",
+    "inputCost": "$0.25",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.2",
+    "inputCost": "$1.75",
+    "outputCost": "$14.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.2-chat",
+    "inputCost": "$1.75",
+    "outputCost": "$14.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-5.2-codex",
+    "inputCost": "$1.75",
+    "outputCost": "$14.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.2-pro",
+    "inputCost": "$21.00",
+    "outputCost": "$168.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.3-chat",
+    "inputCost": "$1.75",
+    "outputCost": "$14.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-5.3-codex",
+    "inputCost": "$1.75",
+    "outputCost": "$14.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.4",
+    "inputCost": "$2.50",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.4-image-2",
+    "inputCost": "$8.00",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.4-mini",
+    "inputCost": "$0.75",
+    "outputCost": "$4.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.4-nano",
+    "inputCost": "$0.20",
+    "outputCost": "$1.25",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.4-pro",
+    "inputCost": "$30.00",
+    "outputCost": "$180.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.5",
+    "inputCost": "$5.00",
+    "outputCost": "$30.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-5.5-pro",
+    "inputCost": "$30.00",
+    "outputCost": "$180.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-audio",
+    "inputCost": "$2.50",
+    "outputCost": "$10.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-audio-mini",
+    "inputCost": "$0.60",
+    "outputCost": "$2.40",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-chat-latest",
+    "inputCost": "$5.00",
+    "outputCost": "$30.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openai/gpt-oss-120b",
+    "inputCost": "$0.03",
+    "outputCost": "$0.15",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-oss-120b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-oss-20b",
+    "inputCost": "$0.03",
+    "outputCost": "$0.14",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-oss-20b:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/gpt-oss-safeguard-20b",
+    "inputCost": "$0.07",
+    "outputCost": "$0.30",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o1",
+    "inputCost": "$15.00",
+    "outputCost": "$60.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o1-pro",
+    "inputCost": "$150.00",
+    "outputCost": "$600.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o3",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o3-deep-research",
+    "inputCost": "$10.00",
+    "outputCost": "$40.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o3-mini",
+    "inputCost": "$1.10",
+    "outputCost": "$4.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o3-mini-high",
+    "inputCost": "$1.10",
+    "outputCost": "$4.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o3-pro",
+    "inputCost": "$20.00",
+    "outputCost": "$80.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o4-mini",
+    "inputCost": "$1.10",
+    "outputCost": "$4.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o4-mini-deep-research",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openai/o4-mini-high",
+    "inputCost": "$1.10",
+    "outputCost": "$4.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "openrouter/auto",
+    "inputCost": "$-1000000.00",
+    "outputCost": "$-1000000.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openrouter/bodybuilder",
+    "inputCost": "$-1000000.00",
+    "outputCost": "$-1000000.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openrouter/free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "openrouter/fusion",
+    "inputCost": "$-1000000.00",
+    "outputCost": "$-1000000.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "openrouter/pareto-code",
+    "inputCost": "$-1000000.00",
+    "outputCost": "$-1000000.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "perceptron/perceptron-mk1",
+    "inputCost": "$0.15",
+    "outputCost": "$1.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "perplexity/sonar",
+    "inputCost": "$1.00",
+    "outputCost": "$1.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "perplexity/sonar-deep-research",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "perplexity/sonar-pro",
+    "inputCost": "$3.00",
+    "outputCost": "$15.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "perplexity/sonar-pro-search",
+    "inputCost": "$3.00",
+    "outputCost": "$15.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "perplexity/sonar-reasoning-pro",
+    "inputCost": "$2.00",
+    "outputCost": "$8.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-m.1",
+    "inputCost": "$0.20",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-m.1:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-xs-2.1",
+    "inputCost": "$0.06",
+    "outputCost": "$0.12",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-xs-2.1:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-xs.2",
+    "inputCost": "$0.10",
+    "outputCost": "$0.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "poolside/laguna-xs.2:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen-2.5-72b-instruct",
+    "inputCost": "$0.36",
+    "outputCost": "$0.40",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen-2.5-7b-instruct",
+    "inputCost": "$0.04",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen-2.5-coder-32b-instruct",
+    "inputCost": "$0.66",
+    "outputCost": "$1.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen-plus",
+    "inputCost": "$0.26",
+    "outputCost": "$0.78",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen-plus-2025-07-28",
+    "inputCost": "$0.26",
+    "outputCost": "$0.78",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen-plus-2025-07-28:thinking",
+    "inputCost": "$0.26",
+    "outputCost": "$0.78",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen2.5-vl-72b-instruct",
+    "inputCost": "$0.80",
+    "outputCost": "$1.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-14b",
+    "inputCost": "$0.10",
+    "outputCost": "$0.24",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-235b-a22b",
+    "inputCost": "$0.45",
+    "outputCost": "$1.82",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-235b-a22b-2507",
+    "inputCost": "$0.09",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-235b-a22b-thinking-2507",
+    "inputCost": "$0.15",
+    "outputCost": "$1.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-30b-a3b",
+    "inputCost": "$0.12",
+    "outputCost": "$0.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-30b-a3b-instruct-2507",
+    "inputCost": "$0.05",
+    "outputCost": "$0.19",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-30b-a3b-thinking-2507",
+    "inputCost": "$0.13",
+    "outputCost": "$1.56",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-32b",
+    "inputCost": "$0.08",
+    "outputCost": "$0.28",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-8b",
+    "inputCost": "$0.12",
+    "outputCost": "$0.45",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-coder",
+    "inputCost": "$0.22",
+    "outputCost": "$1.80",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-coder-30b-a3b-instruct",
+    "inputCost": "$0.07",
+    "outputCost": "$0.27",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-coder-flash",
+    "inputCost": "$0.20",
+    "outputCost": "$0.97",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-coder-next",
+    "inputCost": "$0.11",
+    "outputCost": "$0.80",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-coder-plus",
+    "inputCost": "$0.65",
+    "outputCost": "$3.25",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-coder:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-max",
+    "inputCost": "$0.78",
+    "outputCost": "$3.90",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-max-thinking",
+    "inputCost": "$0.78",
+    "outputCost": "$3.90",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-next-80b-a3b-instruct",
+    "inputCost": "$0.09",
+    "outputCost": "$1.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-next-80b-a3b-instruct:free",
+    "inputCost": "$0.00",
+    "outputCost": "$0.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-next-80b-a3b-thinking",
+    "inputCost": "$0.10",
+    "outputCost": "$0.78",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-vl-235b-a22b-instruct",
+    "inputCost": "$0.20",
+    "outputCost": "$0.88",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-vl-235b-a22b-thinking",
+    "inputCost": "$0.26",
+    "outputCost": "$2.60",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-vl-30b-a3b-instruct",
+    "inputCost": "$0.13",
+    "outputCost": "$0.52",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-vl-30b-a3b-thinking",
+    "inputCost": "$0.13",
+    "outputCost": "$1.56",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3-vl-32b-instruct",
+    "inputCost": "$0.10",
+    "outputCost": "$0.42",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-vl-8b-instruct",
+    "inputCost": "$0.12",
+    "outputCost": "$0.45",
+    "isCOT": false
+  },
+  {
+    "model_name": "qwen/qwen3-vl-8b-thinking",
+    "inputCost": "$0.12",
+    "outputCost": "$1.36",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-122b-a10b",
+    "inputCost": "$0.26",
+    "outputCost": "$2.08",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-27b",
+    "inputCost": "$0.20",
+    "outputCost": "$1.56",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-35b-a3b",
+    "inputCost": "$0.14",
+    "outputCost": "$1.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-397b-a17b",
+    "inputCost": "$0.39",
+    "outputCost": "$2.45",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-9b",
+    "inputCost": "$0.10",
+    "outputCost": "$0.15",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-flash-02-23",
+    "inputCost": "$0.07",
+    "outputCost": "$0.26",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-plus-02-15",
+    "inputCost": "$0.26",
+    "outputCost": "$1.56",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.5-plus-20260420",
+    "inputCost": "$0.30",
+    "outputCost": "$1.80",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.6-27b",
+    "inputCost": "$0.29",
+    "outputCost": "$2.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.6-35b-a3b",
+    "inputCost": "$0.14",
+    "outputCost": "$1.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.6-flash",
+    "inputCost": "$0.19",
+    "outputCost": "$1.13",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.6-max-preview",
+    "inputCost": "$1.04",
+    "outputCost": "$6.24",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.6-plus",
+    "inputCost": "$0.33",
+    "outputCost": "$1.95",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.7-max",
+    "inputCost": "$1.25",
+    "outputCost": "$3.75",
+    "isCOT": true
+  },
+  {
+    "model_name": "qwen/qwen3.7-plus",
+    "inputCost": "$0.32",
+    "outputCost": "$1.28",
+    "isCOT": true
+  },
+  {
+    "model_name": "rekaai/reka-edge",
+    "inputCost": "$0.10",
+    "outputCost": "$0.10",
+    "isCOT": false
+  },
+  {
+    "model_name": "rekaai/reka-flash-3",
+    "inputCost": "$0.10",
+    "outputCost": "$0.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "relace/relace-apply-3",
+    "inputCost": "$0.85",
+    "outputCost": "$1.25",
+    "isCOT": false
+  },
+  {
+    "model_name": "relace/relace-search",
+    "inputCost": "$1.00",
+    "outputCost": "$3.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "sakana/fugu-ultra",
+    "inputCost": "$5.00",
+    "outputCost": "$30.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "sao10k/l3-lunaris-8b",
+    "inputCost": "$0.04",
+    "outputCost": "$0.05",
+    "isCOT": false
+  },
+  {
+    "model_name": "sao10k/l3.1-70b-hanami-x1",
+    "inputCost": "$3.00",
+    "outputCost": "$3.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "sao10k/l3.1-euryale-70b",
+    "inputCost": "$0.85",
+    "outputCost": "$0.85",
+    "isCOT": false
+  },
+  {
+    "model_name": "sao10k/l3.3-euryale-70b",
+    "inputCost": "$0.65",
+    "outputCost": "$0.75",
+    "isCOT": false
+  },
+  {
+    "model_name": "stepfun/step-3.5-flash",
+    "inputCost": "$0.10",
+    "outputCost": "$0.30",
+    "isCOT": true
+  },
+  {
+    "model_name": "stepfun/step-3.7-flash",
+    "inputCost": "$0.20",
+    "outputCost": "$1.15",
+    "isCOT": true
+  },
+  {
+    "model_name": "switchpoint/router",
+    "inputCost": "$0.85",
+    "outputCost": "$3.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "tencent/hunyuan-a13b-instruct",
+    "inputCost": "$0.14",
+    "outputCost": "$0.57",
+    "isCOT": true
+  },
+  {
+    "model_name": "tencent/hy3-preview",
+    "inputCost": "$0.06",
+    "outputCost": "$0.21",
+    "isCOT": true
+  },
+  {
+    "model_name": "thedrummer/cydonia-24b-v4.1",
+    "inputCost": "$0.30",
+    "outputCost": "$0.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "thedrummer/rocinante-12b",
+    "inputCost": "$0.25",
+    "outputCost": "$0.50",
+    "isCOT": false
+  },
+  {
+    "model_name": "thedrummer/skyfall-36b-v2",
+    "inputCost": "$0.55",
+    "outputCost": "$0.80",
+    "isCOT": false
+  },
+  {
+    "model_name": "thedrummer/unslopnemo-12b",
+    "inputCost": "$0.40",
+    "outputCost": "$0.40",
+    "isCOT": false
+  },
+  {
+    "model_name": "undi95/remm-slerp-l2-13b",
+    "inputCost": "$0.45",
+    "outputCost": "$0.65",
+    "isCOT": false
+  },
+  {
+    "model_name": "upstage/solar-pro-3",
+    "inputCost": "$0.15",
+    "outputCost": "$0.60",
+    "isCOT": true
+  },
+  {
+    "model_name": "writer/palmyra-x5",
+    "inputCost": "$0.60",
+    "outputCost": "$6.00",
+    "isCOT": false
+  },
+  {
+    "model_name": "x-ai/grok-4.20",
+    "inputCost": "$1.25",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "x-ai/grok-4.20-multi-agent",
+    "inputCost": "$1.25",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "x-ai/grok-4.3",
+    "inputCost": "$1.25",
+    "outputCost": "$2.50",
+    "isCOT": true
+  },
+  {
+    "model_name": "x-ai/grok-build-0.1",
+    "inputCost": "$1.00",
+    "outputCost": "$2.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "xiaomi/mimo-v2.5",
+    "inputCost": "$0.10",
+    "outputCost": "$0.28",
+    "isCOT": true
+  },
+  {
+    "model_name": "xiaomi/mimo-v2.5-pro",
+    "inputCost": "$0.43",
+    "outputCost": "$0.87",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.5",
+    "inputCost": "$0.60",
+    "outputCost": "$2.20",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.5-air",
+    "inputCost": "$0.13",
+    "outputCost": "$0.85",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.5v",
+    "inputCost": "$0.60",
+    "outputCost": "$1.80",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.6",
+    "inputCost": "$0.43",
+    "outputCost": "$1.74",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.6v",
+    "inputCost": "$0.30",
+    "outputCost": "$0.90",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.7",
+    "inputCost": "$0.40",
+    "outputCost": "$1.75",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-4.7-flash",
+    "inputCost": "$0.06",
+    "outputCost": "$0.40",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-5",
+    "inputCost": "$0.60",
+    "outputCost": "$1.92",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-5-turbo",
+    "inputCost": "$1.20",
+    "outputCost": "$4.00",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-5.1",
+    "inputCost": "$0.97",
+    "outputCost": "$3.04",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-5.2",
+    "inputCost": "$0.57",
+    "outputCost": "$1.80",
+    "isCOT": true
+  },
+  {
+    "model_name": "z-ai/glm-5v-turbo",
+    "inputCost": "$1.20",
+    "outputCost": "$4.00",
+    "isCOT": true
+  }
+]

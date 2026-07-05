@@ -8,8 +8,9 @@ A modern, feature-rich chatbot application built with React that integrates with
 - **Multiple AI Models**: Choose from various models including:
   - GPT-4o Mini
   - GPT-5.4 Nano
-  - GPT-5.4 Mini
-  - GPT-5.4
+  - Gemini 3.5 Flash
+  - DeepSeek V4 Flash
+  - Claude Haiku 4.5
 
 - **Auto-updating Pricing**: Model costs are fetched from OpenRouter on first visit and cached for 24 hours. Prices are always up-to-date without manual updates.
 
@@ -115,6 +116,7 @@ chatbot/
 │   ├── CustomModal.jsx        # Modal for custom instructions
 │   ├── passwordPage.jsx       # Password protection page
 │   ├── modelData.js           # Dynamic model pricing (fetched from OpenRouter)
+│   ├── defaultModels.json     # Snapshot of all models for first-time cache seed
 │   ├── utils.js               # Utility functions (cost calculation)
 │   ├── styles.css             # Application styles
 │   └── index.js               # React entry point
@@ -136,7 +138,7 @@ Cost is displayed in **Paise** (1/100th of a Rupee) for precision.
 
 ### Model Pricing
 
-Model pricing is fetched dynamically from OpenRouter's API (`GET https://openrouter.ai/api/v1/models`) and cached in your browser's localStorage for 24 hours. No manual price updates needed — costs are always current.
+Model pricing is fetched dynamically from OpenRouter's API (`GET https://openrouter.ai/api/v1/models`) and cached in your browser's localStorage for 24 hours. A snapshot of the pricing is also committed in `src/defaultModels.json` so first-time visitors see real prices immediately without an API call.
 
 | Feature | Description |
 |---------|-------------|
@@ -152,8 +154,9 @@ Edit `src/modelData.js` — add the model ID to the `MODEL_IDS` array:
 export const MODEL_IDS = [
   "openai/gpt-4o-mini",
   "openai/gpt-5.4-nano",
-  "openai/gpt-5.4-mini",
-  "openai/gpt-5.4",
+  "google/gemini-3.5-flash",
+  "deepseek/deepseek-v4-flash",
+  "anthropic/claude-haiku-4.5",
   // "your-new-model-id",  ← add new model IDs here
 ];
 ```
