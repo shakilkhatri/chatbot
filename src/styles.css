@@ -56,6 +56,64 @@ body.dark-mode {
   background: var(--secondaryColor);
 }
 
+/* Dark mode modal styles */
+.dark-mode .modal-content {
+  background-color: #2a2a2a;
+  color: var(--text-color);
+  border-color: #444;
+}
+
+.dark-mode .modal-header {
+  border-bottom-color: #444;
+}
+
+.dark-mode .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.dark-mode .modal-footer {
+  border-top-color: #444;
+}
+
+.dark-mode .modal-title {
+  color: var(--text-color);
+}
+
+.dark-mode .form-control {
+  background-color: var(--themeColor);
+  color: var(--text-color);
+  border-color: #555;
+}
+
+.dark-mode .form-control:focus {
+  background-color: var(--themeColor);
+  color: var(--text-color);
+  border-color: var(--secondaryColor);
+  box-shadow: 0 0 0 0.25rem rgba(204, 204, 204, 0.25);
+}
+
+.dark-mode .btn-secondary {
+  background-color: #555;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .btn-secondary:hover {
+  background-color: #666;
+  border-color: #666;
+}
+
+.dark-mode .btn-primary {
+  background-color: #2d7d97;
+  border-color: #2d7d97;
+  color: #fff;
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: #23647a;
+  border-color: #23647a;
+}
+
 .theme-toggle-button {
   background-color: unset;
   border: none;
