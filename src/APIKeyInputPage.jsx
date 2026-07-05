@@ -46,7 +46,7 @@ const APIKeyInputPage = ({ setHasAccess }) => {
           </div>
         )}
         <Form.Group controlId="apiKeyInput">
-          <Form.Label>OpenAI API Key:</Form.Label>
+          <Form.Label>OpenRouter API Key:</Form.Label>
           <Form.Control
             type="password"
             placeholder=""
