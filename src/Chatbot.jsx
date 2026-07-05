@@ -638,6 +638,7 @@ const Chatbot = (props) => {
             <select
               name="model"
               id="modelName"
+              value={modelName}
               onChange={(e) => setModelName(e.target.value)}
               disabled={modelsLoading}
             >
@@ -648,7 +649,9 @@ const Chatbot = (props) => {
               ) : (
                 models.map((model) => (
                   <option value={model.model_name} key={model.model_name}>
-                    {model.model_name}
+                    {model.model_name.includes("/")
+                      ? model.model_name.split("/")[1]
+                      : model.model_name}
                   </option>
                 ))
               )}
