@@ -1,6 +1,4 @@
-import { models } from "./constants";
-
-export function calculateCost(modelName, usageObject, conversionRate = 87.9) {
+export function calculateCost(models, modelName, usageObject, conversionRate = 87.9) {
   const { prompt_tokens, completion_tokens } = usageObject;
   const selectedModel = models.find((model) => model.model_name === modelName);
 

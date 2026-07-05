@@ -4,7 +4,7 @@ import hljs from "highlight.js";
 import toast, { Toaster } from "react-hot-toast";
 import Spinner from "react-bootstrap/Spinner";
 import { calculateCost } from "./utils";
-import { models } from "./constants";
+import { useModels } from "./modelData";
 import CustomModal from "./CustomModal";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -35,6 +35,7 @@ const Chatbot = (props) => {
   );
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [conversionRate, setConversionRate] = useState(90); // Default fallback rate
+  const { models, loading: modelsLoading } = useModels();
 
   // Streaming and image support states
   const [streamingMessage, setStreamingMessage] = useState("");
@@ -82,8 +83,10 @@ const Chatbot = (props) => {
 
   useEffect(() => {
     const modelObj = models.find((model) => model.model_name === modelName);
-    setIsCOT(modelObj.isCOT);
-  }, [modelName]);
+    if (modelObj) {
+      setIsCOT(modelObj.isCOT);
+    }
+  }, [modelName, models]);
 
   const responsesApiCall = useCallback(async () => {
     if (!navigator.onLine) {
@@ -227,7 +230,7 @@ const Chatbot = (props) => {
         if (usageData) {
           let costString =
             "Cost : " +
-            calculateCost(modelName, usageData, conversionRate) +
+            calculateCost(models, modelName, usageData, conversionRate) +
             " Paise";
           console.log(costString);
           toast(costString, { icon: "⚠" });
@@ -253,6 +256,7 @@ const Chatbot = (props) => {
     customInstruction,
     isCOT,
     reasoning_effort,
+    models,
     props.apikey,
   ]);
 
@@ -635,12 +639,19 @@ const Chatbot = (props) => {
               name="model"
               id="modelName"
               onChange={(e) => setModelName(e.target.value)}
+              disabled={modelsLoading}
             >
-              {models.map((model) => (
-                <option value={model.model_name} key={model.model_name}>
-                  {model.model_name}
+              {modelsLoading ? (
+                <option value="" disabled>
+                  Loading models...
                 </option>
-              ))}
+              ) : (
+                models.map((model) => (
+                  <option value={model.model_name} key={model.model_name}>
+                    {model.model_name}
+                  </option>
+                ))
+              )}
             </select>
           </div>
           {isCOT && (
