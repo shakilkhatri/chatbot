@@ -26,7 +26,7 @@ const Chatbot = (props) => {
   const [rememberContext, setRememberContext] = useState(true);
   const [loading, setLoading] = useState(false);
   const [jsonFormat, setJsonFormat] = useState(false);
-  const [modelName, setModelName] = useState("gpt-4o-mini");
+  const [modelName, setModelName] = useState("openai/gpt-4o-mini");
   const [showModal, setShowModal] = useState(false);
   const [isCOT, setIsCOT] = useState(false);
   const [reasoning_effort, setReasoning_effort] = useState("none");
@@ -95,110 +95,128 @@ const Chatbot = (props) => {
       setQuery("");
 
       try {
-        // Build conversation history in Responses API format
+        // Build conversation history in Chat Completions API format
         const history = messages.map((msg) => {
+          // For text-only messages
+          if (!msg.images || msg.images.length === 0) {
+            return {
+              role: msg.isUser ? "user" : "assistant",
+              content: msg.text,
+            };
+          }
+          
+          // For messages with images (multi-modal)
           const content = [
             {
-              type: msg.isUser ? "input_text" : "output_text",
+              type: "text",
               text: msg.text,
             },
           ];
-          // Add images if present in message
-          if (msg.images && msg.images.length > 0) {
-            msg.images.forEach((img) => {
-              content.push({
-                type: "input_image",
-                image_url: img.dataUrl,
-              });
+          
+          msg.images.forEach((img) => {
+            content.push({
+              type: "image_url",
+              image_url: {
+                url: img.dataUrl,
+              },
             });
-          }
+          });
+          
           return {
-            type: "message",
             role: msg.isUser ? "user" : "assistant",
             content: content,
           };
         });
 
         // Build current message content
-        const currentContent = [
-          {
-            type: "input_text",
-            text: query + (jsonFormat ? ". Produce output in JSON format" : ""),
-          },
-        ];
-
-        // Add pasted images to current message
+        let currentMsg;
         if (pastedImages.length > 0) {
+          // Multi-modal message with images
+          const currentContent = [
+            {
+              type: "text",
+              text: query + (jsonFormat ? ". Produce output in JSON format" : ""),
+            },
+          ];
+          
           pastedImages.forEach((img) => {
             currentContent.push({
-              type: "input_image",
-              image_url: img.dataUrl,
+              type: "image_url",
+              image_url: {
+                url: img.dataUrl,
+              },
             });
           });
+          
+          currentMsg = {
+            role: "user",
+            content: currentContent,
+          };
+        } else {
+          // Text-only message
+          currentMsg = {
+            role: "user",
+            content: query + (jsonFormat ? ". Produce output in JSON format" : ""),
+          };
         }
 
-        const currentMsg = {
-          type: "message",
-          role: "user",
-          content: currentContent,
-        };
-
         const systemMsg = {
-          type: "message",
           role: "system",
-          content: [{ type: "input_text", text: customInstruction }],
+          content: customInstruction,
         };
 
-        let inputArray = rememberContext
+        let messagesArray = rememberContext
           ? [...history, currentMsg]
           : [currentMsg];
 
         if (!modelName.includes("o1")) {
-          inputArray.unshift(systemMsg);
+          messagesArray.unshift(systemMsg);
         }
 
         const requestBody = {
           model: modelName,
-          input: inputArray,
-          // Use non-streaming SDK call here
-          stream: false,
-          text: {
-            format: { type: jsonFormat ? "json_object" : "text" },
-          },
-          reasoning: isCOT ? { effort: reasoning_effort } : undefined,
+          messages: messagesArray,
+          stream: true,
         };
 
-        // Use the OpenAI SDK for the request. In browser environments the SDK
-        // may return a streaming body when `stream: true` is set. We set
-        // `dangerouslyAllowBrowser: true` because this is running in the
-        // browser; ensure you understand the security implications.
-        requestBody.stream = true;
+        // Add response_format for JSON mode if enabled
+        if (jsonFormat) {
+          requestBody.response_format = { type: "json_object" };
+        }
+
+        // Use the OpenAI SDK configured for OpenRouter
         const client = new OpenAI({
           apiKey: props.apikey,
+          baseURL: "https://openrouter.ai/api/v1",
           dangerouslyAllowBrowser: true,
+          defaultHeaders: {
+            "HTTP-Referer": window.location.origin,
+            "X-Title": "Chatbot",
+          },
         });
 
-        const stream = await client.responses.create(requestBody);
+        const stream = await client.chat.completions.create(requestBody);
 
         let accumulatedText = "";
         let usageData = null;
 
         for await (const chunk of stream) {
-          if (chunk.type === "response.created") {
-            setCurrentResponseId(chunk.response.id);
-          } else if (chunk.type === "response.output_text.delta") {
+          if (chunk.id) {
+            setCurrentResponseId(chunk.id);
+          }
+          
+          const delta = chunk.choices?.[0]?.delta;
+          if (delta?.content) {
             if (isWaitingForResponse) {
               setIsWaitingForResponse(false);
             }
-            const chunkText = chunk.delta;
-            if (chunkText) {
-              accumulatedText += chunkText;
-              setStreamingMessage(accumulatedText);
-            }
-          } else if (chunk.type === "response.completed") {
-            if (chunk.response && chunk.response.usage) {
-              usageData = chunk.response.usage;
-            }
+            accumulatedText += delta.content;
+            setStreamingMessage(accumulatedText);
+          }
+          
+          // Capture usage data when available
+          if (chunk.usage) {
+            usageData = chunk.usage;
           }
         }
 
@@ -207,13 +225,9 @@ const Chatbot = (props) => {
         setIsWaitingForResponse(false);
 
         if (usageData) {
-          const usageForCalc = {
-            prompt_tokens: usageData.input_tokens,
-            completion_tokens: usageData.output_tokens,
-          };
           let costString =
             "Cost : " +
-            calculateCost(modelName, usageForCalc, conversionRate) +
+            calculateCost(modelName, usageData, conversionRate) +
             " Paise";
           console.log(costString);
           toast(costString, { icon: "⚠" });
