@@ -1,15 +1,17 @@
-# AI Chatbot with OpenAI Integration
+# AI Chatbot with OpenRouter Integration
 
-A modern, feature-rich chatbot application built with React that integrates with OpenAI's GPT models. The application provides a clean, intuitive interface for conversing with AI models while tracking usage costs in real-time.
+A modern, feature-rich chatbot application built with React that integrates with AI models via OpenRouter. The application provides a clean, intuitive interface for conversing with AI models while tracking usage costs in real-time with automatically updated pricing.
 
 ## 🌟 Features
 
 ### Core Functionality
-- **Multiple GPT Models Support**: Choose from various OpenAI models including:
-  - GPT-5 Nano
-  - GPT-5 Mini
-  - GPT-5.1 (with Chain-of-Thought reasoning)
+- **Multiple AI Models**: Choose from various models including:
   - GPT-4o Mini
+  - GPT-5.4 Nano
+  - GPT-5.4 Mini
+  - GPT-5.4
+
+- **Auto-updating Pricing**: Model costs are fetched from OpenRouter on first visit and cached for 24 hours. Prices are always up-to-date without manual updates.
 
 - **Real-time Cost Tracking**: Automatically calculates and displays the cost of each API call in Indian Paise, with dynamic USD to INR conversion rates fetched from a live API
 
@@ -39,7 +41,7 @@ A modern, feature-rich chatbot application built with React that integrates with
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm or yarn
-- OpenAI API key
+- OpenRouter API key (or any OpenAI-compatible API key)
 
 ### Installation
 
@@ -58,7 +60,7 @@ A modern, feature-rich chatbot application built with React that integrates with
    
    Create a `.env.production` file in the root directory:
    ```
-   REACT_APP_API_KEY=your_openai_api_key_here
+   REACT_APP_API_KEY=your_openrouter_api_key_here
    ```
 
 4. **Start the development server**
@@ -79,9 +81,9 @@ This creates an optimized production build in the `build` folder.
 ## 📖 Usage
 
 ### First Time Setup
-1. When you first open the application, you'll be prompted to enter your OpenAI API key
+1. When you first open the application, you'll be prompted to enter your OpenRouter API key
 2. The API key is stored in your browser's local storage for future sessions
-3. You can update the API key anytime through the settings
+3. You can update the API key anytime by clearing localStorage or through the interface
 
 ### Chatting with the AI
 1. Type your message in the input box at the bottom
@@ -90,7 +92,7 @@ This creates an optimized production build in the `build` folder.
 4. Cost information is displayed as a toast notification after each response
 
 ### Customizing Behavior
-- **Model Selection**: Use the dropdown to select your preferred GPT model
+- **Model Selection**: Use the dropdown to select your preferred model. Pricing is fetched from OpenRouter and cached locally for 24 hours
 - **Context Toggle**: Enable/disable conversation context retention
 - **JSON Mode**: Check the JSON box to receive structured responses
 - **Custom Instructions**: Click the settings icon to set custom system instructions
@@ -112,7 +114,7 @@ chatbot/
 │   ├── Chatbot.jsx            # Core chatbot component
 │   ├── CustomModal.jsx        # Modal for custom instructions
 │   ├── passwordPage.jsx       # Password protection page
-│   ├── constants.js           # Model configurations and pricing
+│   ├── modelData.js           # Dynamic model pricing (fetched from OpenRouter)
 │   ├── utils.js               # Utility functions (cost calculation)
 │   ├── styles.css             # Application styles
 │   └── index.js               # React entry point
@@ -126,42 +128,42 @@ chatbot/
 The application automatically calculates costs based on:
 - **Input tokens**: Charged per the model's input pricing
 - **Output tokens**: Charged per the model's output pricing
+- **Auto-updated pricing**: Model costs are fetched from OpenRouter on first visit and cached locally for 24 hours
 - **Dynamic conversion rate**: USD to INR rate is fetched from the currency API on app load
 - **Fallback rate**: If the API fails, defaults to 90 INR per USD
 
 Cost is displayed in **Paise** (1/100th of a Rupee) for precision.
 
-### Model Pricing (per 1M tokens)
+### Model Pricing
 
-| Model | Input Cost | Output Cost | COT Support |
-|-------|-----------|-------------|-------------|
-| GPT-5 Nano | $0.05 | $0.40 | No |
-| GPT-5 Mini | $0.25 | $2.00 | No |
-| GPT-5.1 | $1.25 | $10.00 | Yes |
-| GPT-4o Mini | $0.15 | $0.60 | No |
+Model pricing is fetched dynamically from OpenRouter's API (`GET https://openrouter.ai/api/v1/models`) and cached in your browser's localStorage for 24 hours. No manual price updates needed — costs are always current.
 
-## 🔧 Configuration
+| Feature | Description |
+|---------|-------------|
+| **Automatic updates** | Prices refresh from OpenRouter on page visit if cache is stale (>24h) |
+| **Offline fallback** | Cached prices used immediately; background fetch refreshes silently |
+| **COT detection** | Models supporting reasoning get the effort dropdown automatically |
 
 ### Adding New Models
 
-Edit `src/constants.js`:
+Edit `src/modelData.js` — add the model ID to the `MODEL_IDS` array:
 
 ```javascript
-export const models = [
-  {
-    model_name: "model-name",
-    inputCost: "$X.XX",
-    outputCost: "$Y.YY",
-    isCOT: false, // or true for Chain-of-Thought models
-  },
-  // ... more models
+export const MODEL_IDS = [
+  "openai/gpt-4o-mini",
+  "openai/gpt-5.4-nano",
+  "openai/gpt-5.4-mini",
+  "openai/gpt-5.4",
+  // "your-new-model-id",  ← add new model IDs here
 ];
 ```
+
+Pricing and COT support are fetched from the API automatically — no need to enter costs manually.
 
 ### Changing Default Settings
 
 In `src/Chatbot.jsx`, you can modify:
-- Default model: `useState("gpt-5-nano")`
+- Default model: `useState("openai/gpt-4o-mini")`
 - Default custom instruction: `useState("Always give me answer in brief")`
 - Default theme: `useState(true)` for dark mode
 - Default conversion rate: `useState(90)`
@@ -169,7 +171,7 @@ In `src/Chatbot.jsx`, you can modify:
 ## 🛠️ Technologies Used
 
 - **React** (18.2.0) - UI framework
-- **OpenAI API** - AI model integration
+- **OpenAI SDK** - AI model integration via OpenRouter
 - **Highlight.js** - Code syntax highlighting
 - **KaTeX** - Mathematical expression rendering
 - **React Hot Toast** - Toast notifications
@@ -179,11 +181,17 @@ In `src/Chatbot.jsx`, you can modify:
 
 ## 🌐 API Integration
 
-### OpenAI API
-The app uses OpenAI's Chat Completions API:
+### OpenRouter API
+The app routes through OpenRouter for broad model access:
 ```
-POST https://api.openai.com/v1/chat/completions
+POST https://openrouter.ai/api/v1/chat/completions
 ```
+
+Model pricing is fetched from:
+```
+GET https://openrouter.ai/api/v1/models
+```
+Responses are cached in localStorage for 24 hours with automatic background refresh.
 
 ### Currency Conversion API
 Dynamic USD to INR rates are fetched from:
@@ -209,12 +217,16 @@ You can enable/disable features by modifying state variables in `Chatbot.jsx`:
 ### Common Issues
 
 **API Key Not Working**
-- Verify your OpenAI API key is valid
-- Check your OpenAI account has sufficient credits
+- Verify your OpenRouter API key is valid
+- Check your OpenRouter account has sufficient credits
 - Ensure you have access to the models you're trying to use
 
 **Cost Calculation Shows "Model not found"**
-- Ensure the model name in `constants.js` matches exactly with OpenAI's model names
+- Ensure the model ID in `MODEL_IDS` (in `src/modelData.js`) matches exactly with OpenRouter's model IDs as returned by the API
+
+**Model Dropdown Shows "Loading models..."**
+- Usually a temporary state during the first API fetch — the dropdown should populate within a few seconds
+- Check browser console for network errors if it persists
 
 **Currency Rate Not Updating**
 - Check browser console for API errors
@@ -239,4 +251,4 @@ For issues and questions, please open an issue in the repository.
 
 ---
 
-**Note**: This application requires an active OpenAI API key and internet connection to function. API usage costs are charged by OpenAI according to their pricing structure.
+**Note**: This application requires an active OpenRouter API key and internet connection to function. API usage costs are charged by OpenRouter/OpenAI according to their pricing structure, which is displayed in the app via auto-fetched pricing data.
