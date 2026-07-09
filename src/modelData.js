@@ -14,6 +14,7 @@ const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 1 day
 export const MODEL_IDS = [
   "openai/gpt-4o-mini",
   "openai/gpt-5.4-nano",
+  "google/gemini-2.5-flash-lite",
   "google/gemini-3.5-flash",
   "deepseek/deepseek-v4-flash",
   "anthropic/claude-haiku-4.5",
