@@ -242,7 +242,7 @@ You can enable/disable features by modifying state variables in `Chatbot.jsx`:
 
 ## 📝 License
 
-This project was created with CodeSandbox.
+This project was created with CodeSandbox and is maintained locally.
 
 ## 🤝 Contributing
 

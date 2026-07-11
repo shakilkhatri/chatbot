@@ -8,6 +8,8 @@ import { useModels } from "./modelData";
 import CustomModal from "./CustomModal";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 import OpenAI from "openai";
 import { TrashIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 import {
@@ -15,6 +17,12 @@ import {
   SunIcon,
   PaperAirplaneIcon,
 } from "@heroicons/react/16/solid";
+
+// Configure marked for GFM markdown parsing
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
 
 const Chatbot = (props) => {
   const [messages, setMessages] = useState([]);
@@ -455,40 +463,58 @@ const Chatbot = (props) => {
     }
   }, []);
 
-  function getStringAfterFirstLineBreak(inputString) {
-    const breakIndex = inputString.indexOf("\n");
-    if (breakIndex === -1) {
-      return inputString;
-    }
-    const result = inputString.substring(breakIndex + 1);
-    return result;
+  // Escape HTML for safe display of raw text during streaming
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
   }
 
-  function formatTextWithBoldAndMath(text) {
-    const mathParts = text.split(/(\\\[[\s\S]*?\\\])/);
-
-    const processedParts = mathParts.map((part, mathIndex) => {
-      if (part.startsWith("\\[") && part.endsWith("\\]")) {
-        const mathContent = part.slice(3, -3);
-        const renderedMath = katex.renderToString(mathContent, {
+  // Full markdown rendering with sanitization (for finalized messages)
+  function renderMarkdown(text) {
+    if (!text) return "";
+    // Render display math \[...\] with KaTeX before passing to marked
+    const withMath = text.replace(
+      /\\\[([\s\S]*?)\\\]/g,
+      (_, math) =>
+        katex.renderToString(math, {
           displayMode: true,
           throwOnError: false,
-        });
-        return renderedMath;
-      }
+        })
+    );
+    const raw = marked.parse(withMath);
+    return DOMPurify.sanitize(raw);
+  }
 
-      const boldParts = part.split("**");
-      const formattedBoldText = boldParts.map((boldPart, boldIndex) => {
-        if (boldIndex % 2 === 1) {
-          return `<strong key="bold-${mathIndex}-${boldIndex}">${boldPart}</strong>`;
-        }
-        return boldPart;
-      });
+  // Streaming-aware markdown rendering: parse stable prefix, show tail raw
+  function renderStreamingMarkdown(text) {
+    if (!text) return "";
+    // Render display math \[...\] with KaTeX
+    const withMath = text.replace(
+      /\\\[([\s\S]*?)\\\]/g,
+      (_, math) =>
+        katex.renderToString(math, {
+          displayMode: true,
+          throwOnError: false,
+        })
+    );
+    // Find the last newline to avoid parsing mid-line or incomplete blocks
+    const lastNewline = withMath.lastIndexOf("\n");
+    if (lastNewline === -1) {
+      return escapeHtml(withMath);
+    }
+    const stable = withMath.slice(0, lastNewline);
+    const tail = withMath.slice(lastNewline + 1);
 
-      return formattedBoldText.join("");
-    });
-
-    return processedParts.join("");
+    let html = "";
+    if (stable.length > 0) {
+      html = DOMPurify.sanitize(marked.parse(stable));
+    }
+    html += "\n";
+    if (tail.length > 0) {
+      html += escapeHtml(tail);
+    }
+    return html;
   }
 
   const handleCloseModal = () => {
@@ -531,50 +557,13 @@ const Chatbot = (props) => {
                   </span>
                 ) : (
                   <span>
-                    {message.text.split("```").map((item, index) => {
-                      if (index % 2 === 0) {
-                        return (
-                          <div key={index + "11"}>
-                            <pre
-                              onClick={() => handleClick(item)}
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  index === 0
-                                    ? formatTextWithBoldAndMath(item)
-                                    : formatTextWithBoldAndMath(item.slice(2)),
-                              }}
-                            ></pre>
-                            <br />
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div style={{ position: "relative" }}>
-                            {item.split("\n", 1)[0] && (
-                              <pre className="lang_name">
-                                {item.split("\n", 1)[0]}
-                              </pre>
-                            )}
-
-                            <pre
-                              key={index + "22"}
-                              onClick={() =>
-                                handleClick(
-                                  getStringAfterFirstLineBreak(item) || item
-                                )
-                              }
-                            >
-                              <code>
-                                {item.split("\n", 1)[0]
-                                  ? "\n" + getStringAfterFirstLineBreak(item)
-                                  : item.slice(1)}
-                              </code>
-                            </pre>
-                            <br />
-                          </div>
-                        );
-                      }
-                    })}
+                    <div
+                      className="message-content"
+                      onClick={() => handleClick(message.text)}
+                      dangerouslySetInnerHTML={{
+                        __html: renderMarkdown(message.text),
+                      }}
+                    ></div>
                   </span>
                 )}
               </div>
@@ -582,13 +571,14 @@ const Chatbot = (props) => {
             {isStreaming && streamingMessage && (
               <div className="bot-message">
                 <span>
-                  <pre
+                  <div
+                    className="message-content"
                     dangerouslySetInnerHTML={{
                       __html:
-                        formatTextWithBoldAndMath(streamingMessage) +
+                        renderStreamingMarkdown(streamingMessage) +
                         '<span class="streaming-cursor">▊</span>',
                     }}
-                  ></pre>
+                  ></div>
                 </span>
               </div>
             )}
